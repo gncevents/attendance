@@ -44,8 +44,12 @@ $tbl="";
 	}
 	$conn_str = getenv('SQLAZURECONNSTR_attendance');
 	$dbConn = connStrToArray($conn_str);
+	foreach($dbConn as $key => $value){
+        echo "<br />".$key.":".$value;
+	}
 
 	$serverName = substr($dbConn["Data Source"],4,34);
+	echo $serverName;
 	$connectionInfo = array( "Database"=>$dbConn["Database"], "UID"=>$dbConn["User Id"], "PWD"=>$dbConn["Password"]); 
  	$link = sqlsrv_connect( $serverName, $connectionInfo ) or die("Can not Login");
 
