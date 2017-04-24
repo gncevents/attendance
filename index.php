@@ -2,12 +2,12 @@
 <html>
 <title>GNC Attendance System</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="./w3.css">
 <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
   <style>
         * {
-    font-family: Poppins !important;
-    }
+			font-family: Poppins !important;
+		}
   </style>
 <body>
 
@@ -50,10 +50,10 @@ $tbl="";
 	$connectionInfo = array( "Database"=>$dbConn["Initial Catalog"], "UID"=>$dbConn["User ID"], "PWD"=>$dbConn["Password"]); 
 
  	$link = sqlsrv_connect( $serverName, $connectionInfo ) or die("Can not Login");
-
+	 echo $macAddr;
 	$result = sqlsrv_query($link,"select * from attendance where mac='".$macAddr."'");
 	if( $result === false) {
-		die( print_r( sqlsrv_errors(), true) );
+		print_r( sqlsrv_errors(), true);
 	}
 
 	while($row=sqlsrv_fetch_array($result,SQLSRV_FETCH_ASSOC)){
@@ -82,7 +82,7 @@ $tbl="";
 
     <div class="w3-container w3-center">
       <h3><?php echo date("d-m-Y"); ?></h3>
-      <img src="http://www.w3schools.com/w3css/img_avatar3.png" alt="Avatar" style="width:50%">
+      <img src="./avatar3.png" alt="Avatar" style="width:50%">
       <h2>
 			<?php echo $name; ?>
 	  </h2>
