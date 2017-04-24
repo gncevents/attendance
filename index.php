@@ -25,6 +25,7 @@ $lines=explode("\n", $arp);
 foreach($lines as $line)
 {
    $cols=preg_split('/\s+/', trim($line));
+   echo $line;
    if ($cols[0]==$ipAddress)
    {
        $macAddr=$cols[1];
