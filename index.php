@@ -34,20 +34,25 @@ session_start();
 $name="";
 $tbl="";
 	$db="attendance";
-	$link = mysqli_connect('localhost', 'root', 'NoPassword') or die("can not Login.");
-	mysqli_select_db($link,$db) or die("can not Login(Database Error.)");
-	$result = mysqli_query($link,"select * from attendance where Mac='".$macAddr."'");
-	while($row=mysqli_fetch_array($result,MYSQLI_NUM)){
-		$name=$row[1];
-		$tbl=$row[3];
+	$serverName = "gncattendance.database.windows.net";
+	$connectionInfo = array( "Database"=>"attendance", "UID"=>"GNCadmin", "PWD"=>"Admin@GNC"); 
+ 	$link = sqlsrv_connect( $serverName, $connectionInfo ) or die("can not Login.");
+	$result = sqlsrv_query($link,"select * from attendance where Mac='".$macAddr."'");
+	if( $result === false) { 
+		die( print_r( sqlsrv_errors(), true) );
 	}
-	if($tbl!=""){$btns = mysqli_query($link,"select * from ".$tbl." where Date='".date("Y-m-d")."'");
-		while($btnrow=mysqli_fetch_array($btns,MYSQLI_NUM)) { 
+
+	while($row=sqlsrv_fetch_array($result,SQLSRV_FETCH_ASSOC)){
+		$name=$row['name'];
+		$tbl=$row['username'];
+	}
+	if($tbl!=""){$btns = sqlsrv_query($link,"select * from ".$tbl." where Date='".date("Y-m-d")."'");
+		while($btnrow=sqlsrv_fetch_array($btns,SQLSRV_FETCH_ASSOC)) { 
 			//echo "H".$btnrow[0]."H".$btnrow[1]."H".$btnrow[2]."H";
 		}
 		if($btnrow[0]=="")
 		{
-			$dateadd = mysqli_query($link, "insert into ".$tbl." (`Date`) values ('".date("Y-m-d")."')");
+			$dateadd = sqlsrv_query($link, "insert into ".$tbl." (`Date`) values ('".date("Y-m-d")."')");
 		}
 	}
 ?>
@@ -73,14 +78,14 @@ $tbl="";
 			if($name==""){echo "disabled";} else if($btnrow[1]!="") {echo "disabled";} }}else{echo "disabled";}?>>In</button>
 
 					<button class="w3-btn w3-red" name="present" value="out" style="width:150px;height:50px;"
-<?php 	if($tbl!=""){$btns = mysqli_query($link,"select * from ".$tbl." where Date='".date("Y-m-d")."'");
+<?php 	if($tbl!=""){$btns = sqlsrv_query($link,"select * from ".$tbl." where Date='".date("Y-m-d")."'");
 		while($btnrow=mysqli_fetch_array($btns,MYSQLI_NUM)) {
-			if($name==""){echo "disabled";} else if($btnrow[2]!="") {echo "disabled";} }}else{echo "disabled";}?>>Out</button>
+			if($name==""){echo "disabled";} else if($btnrow[2]!="") {echo "disabled";} }}else{echo "disabled";} ?> >Out</button>
 		<input type=hidden name="tblnm" value="<?php echo $tbl; ?>">
 		<input type=hidden name="usrnm" value="<?php echo $name; ?>">
 
-		<textarea name="worktext" cols="50" rows="5" placeholder="Describe You've done work for the day." <?php if($tbl!=""){$btns1 = mysqli_query($link,"select * from ".$tbl." where Date='".date("Y-m-d")."'"); 
-		while($btnrow1=mysqli_fetch_array($btns1,MYSQLI_NUM)) { 
+		<textarea name="worktext" cols="50" rows="5" placeholder="Describe You've done work for the day." <?php if($tbl!=""){$btns1 = sqlsrv_query($link,"select * from ".$tbl." where Date='".date("Y-m-d")."'"); 
+		while($btnrow1=sqlsrv_fetch_array($btns1,MYSQLI_NUM)) {
 			if($name==""){echo "style='margin-top: 10px; display:none; !important'";}
 			else if($btnrow1[1]=="" && $btnrow1[2]=="") {echo "style='margin-top: 10px; display:none; !important' ";}
 			else if($btnrow1[1]!="" && $btnrow1[2]!="") {echo "style='margin-top: 10px; display:none; !important' ";}
