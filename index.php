@@ -33,10 +33,7 @@ foreach($lines as $line)
 session_start();
 $name="";
 $tbl="";
-	$db="attendance";
-	$serverName = "gncattendance.database.windows.net";
-	$connectionInfo = array( "Database"=>"attendance", "UID"=>"GNCadmin", "PWD"=>"Admin@GNC"); 
- 	$link = sqlsrv_connect( $serverName, $connectionInfo ) or die("can not Login.");
+ 	$link = new PDO(getenv('SQLAZURECONNSTR_attendance')) or die("can not Login.");
 	$result = sqlsrv_query($link,"select * from attendance where mac='".$macAddr."'");
 	if( $result === false) { 
 		die( print_r( sqlsrv_errors(), true) );
