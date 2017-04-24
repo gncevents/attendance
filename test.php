@@ -1,4 +1,4 @@
 <?php 
 $connstr = getenv('attendance');
-echo $connstr;
+echo $connstr."H";
 ?>

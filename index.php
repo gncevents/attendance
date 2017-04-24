@@ -37,7 +37,7 @@ $tbl="";
 	$serverName = "gncattendance.database.windows.net";
 	$connectionInfo = array( "Database"=>"attendance", "UID"=>"GNCadmin", "PWD"=>"Admin@GNC"); 
  	$link = sqlsrv_connect( $serverName, $connectionInfo ) or die("can not Login.");
-	$result = sqlsrv_query($link,"select * from attendance where Mac='".$macAddr."'");
+	$result = sqlsrv_query($link,"select * from attendance where mac='".$macAddr."'");
 	if( $result === false) { 
 		die( print_r( sqlsrv_errors(), true) );
 	}
@@ -74,18 +74,18 @@ $tbl="";
 
 		<button class="w3-btn w3-green" name="present" value="in" style="margin-right:50px;width:130px;height:50px;"
 <?php 	if($tbl!=""){$btns = mysqli_query($link,"select * from ".$tbl." where Date='".date("Y-m-d")."'"); 
-		while($btnrow=mysqli_fetch_array($btns,MYSQLI_NUM)) { 
+		while($btnrow=sqlsrv_fetch_array($btns,SQLSRV_FETCH_ASSOC)) { 
 			if($name==""){echo "disabled";} else if($btnrow[1]!="") {echo "disabled";} }}else{echo "disabled";}?>>In</button>
 
 					<button class="w3-btn w3-red" name="present" value="out" style="width:150px;height:50px;"
 <?php 	if($tbl!=""){$btns = sqlsrv_query($link,"select * from ".$tbl." where Date='".date("Y-m-d")."'");
-		while($btnrow=mysqli_fetch_array($btns,MYSQLI_NUM)) {
+		while($btnrow=sqlsrv_fetch_array($btns,SQLSRV_FETCH_ASSOC)) {
 			if($name==""){echo "disabled";} else if($btnrow[2]!="") {echo "disabled";} }}else{echo "disabled";} ?> >Out</button>
 		<input type=hidden name="tblnm" value="<?php echo $tbl; ?>">
 		<input type=hidden name="usrnm" value="<?php echo $name; ?>">
 
 		<textarea name="worktext" cols="50" rows="5" placeholder="Describe You've done work for the day." <?php if($tbl!=""){$btns1 = sqlsrv_query($link,"select * from ".$tbl." where Date='".date("Y-m-d")."'"); 
-		while($btnrow1=sqlsrv_fetch_array($btns1,MYSQLI_NUM)) {
+		while($btnrow1=sqlsrv_fetch_array($btns1,SQLSRV_FETCH_ASSOC)) {
 			if($name==""){echo "style='margin-top: 10px; display:none; !important'";}
 			else if($btnrow1[1]=="" && $btnrow1[2]=="") {echo "style='margin-top: 10px; display:none; !important' ";}
 			else if($btnrow1[1]!="" && $btnrow1[2]!="") {echo "style='margin-top: 10px; display:none; !important' ";}
