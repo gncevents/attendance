@@ -48,7 +48,7 @@ $tbl="";
 
 	$serverName = $dbConn["Data Source"];
 	$connectionInfo = array( "Database"=>$dbConn["Database"], "UID"=>$dbConn["User Id"], "PWD"=>$dbConn["Password"]); 
- 	$conn = sqlsrv_connect( $serverName, $connectionInfo );
+ 	$link = sqlsrv_connect( $serverName, $connectionInfo );
 
 
 	$result = sqlsrv_query($link,"select * from attendance where mac='".$macAddr."'");
