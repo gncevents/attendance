@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php 
-$connstr = getenv('APPSETTING_attendance');
+$connstr = getenv('SQLAZURECONNSTR_attendance');
 echo $connstr."H";
 ?>
 </html>
