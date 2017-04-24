@@ -52,11 +52,14 @@ $tbl="";
  	$link = sqlsrv_connect( $serverName, $connectionInfo ) or die("Can not Login");
 
 	$result = sqlsrv_query($link,"select * from attendance where mac='".$macAddr."'");
-	if( $result === false) { 
+	if( $result === false) {
 		die( print_r( sqlsrv_errors(), true) );
 	}
 
 	while($row=sqlsrv_fetch_array($result,SQLSRV_FETCH_ASSOC)){
+		foreach($row as $key => $value){
+			echo $key." : ".$value."<br />";
+		}
 		$name=$row['name'];
 		$tbl=$row['username'];
 	}
@@ -64,9 +67,9 @@ $tbl="";
 		while($btnrow=sqlsrv_fetch_array($btns,SQLSRV_FETCH_ASSOC)) { 
 			//echo "H".$btnrow[0]."H".$btnrow[1]."H".$btnrow[2]."H";
 		}
-		if($btnrow[0]=="")
+		if($btnrow['date']=="")
 		{
-			$dateadd = sqlsrv_query($link, "insert into ".$tbl." (`Date`) values ('".date("Y-m-d")."')");
+			$dateadd = sqlsrv_query($link, "insert into ".$tbl." (`date`) values ('".date("Y-m-d")."')");
 		}
 	}
 ?>
