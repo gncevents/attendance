@@ -44,17 +44,11 @@ $tbl="";
 	}
 	$conn_str = getenv('SQLAZURECONNSTR_attendance');
 	$dbConn = connStrToArray($conn_str);
-	foreach($dbConn as $key => $value){
-        echo "<br />".$key." : ".$value;
-	}
-
+	
 	$serverName = substr($dbConn["Data Source"],4,34);
-	echo "<br />".$serverName;
+	
 	$connectionInfo = array( "Database"=>$dbConn["Initial Catalog"], "UID"=>$dbConn["User ID"], "PWD"=>$dbConn["Password"]); 
 
-	foreach($connectionInfo as $key => $value){
-		echo "<br />".$key." : ".$value;
-	}
  	$link = sqlsrv_connect( $serverName, $connectionInfo ) or die("Can not Login");
 
 	$result = sqlsrv_query($link,"select * from attendance where mac='".$macAddr."'");
