@@ -1,3 +1,3 @@
 <?php 
-$connstr = getenv('attenadance');
+$connstr = getenv('attendance');
 ?>
