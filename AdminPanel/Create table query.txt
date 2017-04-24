@@ -1,0 +1,3 @@
+create query 
+
+CREATE TABLE `attendance`.`kishan` ( `Date` DATE NULL DEFAULT NULL , `In Time` TIME NULL DEFAULT NULL , `Out Time` TIME NULL DEFAULT NULL , `Work` VARCHAR(100) NULL DEFAULT NULL , UNIQUE `kishan_Unique` (`Date`)) ENGINE = InnoDB;
