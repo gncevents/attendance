@@ -50,7 +50,7 @@ $tbl="";
 
 	$serverName = substr($dbConn["Data Source"],4,34);
 	echo "<br />".$serverName;
-	$connectionInfo = array( "Database"=>$dbConn["Initial Catalog"], "UID"=>$dbConn["User Id"], "PWD"=>$dbConn["Password"]); 
+	$connectionInfo = array( "Database"=>$dbConn["Initial Catalog"], "UID"=>$dbConn["User ID"], "PWD"=>$dbConn["Password"]); 
 
 	foreach($connectionInfo as $key => $value){
 		echo "<br />".$key." : ".$value;
