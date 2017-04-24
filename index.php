@@ -14,8 +14,7 @@
 <div class="w3-container">
 
 <?php date_default_timezone_set('Asia/Kolkata'); 
-
-/*$ipAddress=$_SERVER['REMOTE_ADDR'];
+$ipAddress=$_SERVER['REMOTE_ADDR'];
 $macAddr=false;
 
 $arp=`arp -a $ipAddress`;
@@ -29,11 +28,7 @@ foreach($lines as $line)
    {
        $macAddr=$cols[1];
    }
-}*/
-
-require_once './MacAddress.php';
-echo MacAddress::getCurrentMacAddress('eth0');
-
+}
 session_start();
 $name="";
 $tbl="";
