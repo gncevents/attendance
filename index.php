@@ -33,7 +33,6 @@ foreach($lines as $line)
 session_start();
 $name="";
 $tbl="";
- 	//$link = new PDO(getenv('SQLAZURECONNSTR_attendance')) or die("can not Login.");
 	 function connStrToArray($connStr){
 		$connArray = array();
 		$parts = explode(";", $connStr);
@@ -48,8 +47,7 @@ $tbl="";
 
 	$serverName = $dbConn["Data Source"];
 	$connectionInfo = array( "Database"=>$dbConn["Database"], "UID"=>$dbConn["User Id"], "PWD"=>$dbConn["Password"]); 
- 	$link = sqlsrv_connect( $serverName, $connectionInfo );
-
+ 	$link = sqlsrv_connect( $serverName, $connectionInfo ) or die("Can not Login");
 
 	$result = sqlsrv_query($link,"select * from attendance where mac='".$macAddr."'");
 	if( $result === false) { 
