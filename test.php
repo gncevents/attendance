@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php 
-$connstr = getenv('attendance');
+$connstr = getenv('APPSETTING_attendance');
 echo $connstr."H";
 ?>
 </html>
