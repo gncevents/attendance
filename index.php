@@ -32,7 +32,7 @@ foreach($lines as $line)
 }*/
 
 require_once './MacAddress.php';
-var_dump(MacAddress::getCurrentMacAddress('eth0'));
+echo MacAddress::getCurrentMacAddress('eth0');
 
 session_start();
 $name="";
