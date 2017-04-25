@@ -40,15 +40,12 @@ $tbl="";
 echo $mac;
 
 
-	$result = sqlsrv_query($link,"select * from attendance where mac='".$macAddr."'");
+	$result = sqlsrv_query($link,"select * from attendance where mac='".$_GET['data']."'");
 	if( $result === false) {
 		print_r( sqlsrv_errors(), true);
 	}
 
 	while($row=sqlsrv_fetch_array($result,SQLSRV_FETCH_ASSOC)){
-		foreach($row as $key => $value){
-			echo $key." : ".$value."<br />";
-		}
 		$name=$row['name'];
 		$tbl=$row['username'];
 	}
@@ -72,7 +69,7 @@ echo "<div style=\"display:flex;justify-content:center;\">
       <h3><?php echo date(\"d-m-Y\"); ?></h3>
       <img src=\"./avatar3.png\" alt=\"Avatar\" style=\"width:50%\">
       <h2>".$name."</h2>
-	<form action=\"present.php\" method=\"post\">	
+	<form action=\"https://gncattendance.azurewebsites.net/present.php\" method=\"post\">	
       <div class=\"w3-section\">
 
 		<button class=\"w3-btn w3-green\" name=\"present\" value=\"in\" style=\"margin-right:50px;width:130px;height:50px;\"";

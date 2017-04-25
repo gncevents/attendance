@@ -46,9 +46,6 @@ echo $mac;
 	}
 
 	while($row=sqlsrv_fetch_array($result,SQLSRV_FETCH_ASSOC)){
-		foreach($row as $key => $value){
-			echo $key." : ".$value."<br />";
-		}
 		$name=$row['name'];
 		$tbl=$row['username'];
 	}
