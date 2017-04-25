@@ -8,11 +8,6 @@
 	$connectionInfo = array( "Database"=>$dbConn["Initial Catalog"], "UID"=>$dbConn["User ID"], "PWD"=>$dbConn["Password"]); 
 
  	$link = sqlsrv_connect( $serverName, $connectionInfo ) or die("Can not Login");
-	 echo $macAddr;
-	 $mac = system('arp -an');
-echo $mac;
-
-
 	$result = sqlsrv_query($link,"select * from attendance where mac='".$macAddr."'");
 	if( $result === false) {
 		print_r( sqlsrv_errors(), true);
