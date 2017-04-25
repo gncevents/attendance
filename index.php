@@ -1,5 +1,6 @@
 <?php date_default_timezone_set('Asia/Kolkata'); 
 header('Access-Control-Allow-Origin: https://gncattendance.azurewebsites.net');
+header('Access-Control-Allow-Methods: POST');
 $ipAddress=$_SERVER['REMOTE_ADDR'];
 $macAddr=false;
 
@@ -14,7 +15,6 @@ foreach($lines as $line)
        $macAddr=$cols[1];
    }
 }
-echo $macAddr;
 ?>
 <!DOCTYPE html>
 <html>
@@ -32,15 +32,14 @@ echo $macAddr;
 <div id="attcard"></div>
 <script>
 var data = "<?php echo $macAddr; ?>";
-var name="";
-var username="";
 $.ajax({
 	type: "POST",
-	dataType: "json",
+	async : true,
 	url: "https://gncattendance.azurewebsites.net/index2.php",
 	data: data,
-	success: function(data) {
-		$("#attcard").html(data);
+	success: function(data1) {
+		console.log(data1);
+		$("#attcard").html(data1);
 	}
 });
 </script>

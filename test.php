@@ -40,7 +40,7 @@ $tbl="";
 echo $mac;
 
 
-	$result = sqlsrv_query($link,"select * from attendance where mac='".$macAddr."'");
+	$result = sqlsrv_query($link,"select * from attendance where mac='".$_GET['data']."'");
 	if( $result === false) {
 		print_r( sqlsrv_errors(), true);
 	}
