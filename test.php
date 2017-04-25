@@ -22,7 +22,7 @@
   <div class=\"w3-card-8 w3-dark-grey\" style=\"width:26%;margin-right:1%;\">
 
     <div class=\"w3-container w3-center\">
-      <h3><?php echo date(\"d-m-Y\"); ?></h3>
+      <h3>".date("d-m-Y")."</h3>
       <img src=\"./avatar3.png\" alt=\"Avatar\" style=\"width:50%\">
       <h2>".$name."</h2>
 	<form action=\"present.php\" method=\"post\">	
