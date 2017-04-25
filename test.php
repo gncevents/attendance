@@ -1,5 +1,5 @@
 <?php date_default_timezone_set('Asia/Kolkata'); 
-	if(isset($_POST['data'])){
+	if(isset($_GET['data'])){
 		
 		echo "<!DOCTYPE html>
 <html>
