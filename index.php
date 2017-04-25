@@ -1,4 +1,5 @@
 <?php date_default_timezone_set('Asia/Kolkata'); 
+header('Access-Control-Allow-Origin: https://gncattendance.azurewebsites.net');
 $ipAddress=$_SERVER['REMOTE_ADDR'];
 $macAddr=false;
 
