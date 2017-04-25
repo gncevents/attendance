@@ -28,7 +28,7 @@ echo $macAddr;
 		}
   </style>
 <body>
-
+<div id="attcard"></div>
 <script>
 var data = {
 	"mac":"<?php echo $macAddr; ?>"
@@ -41,9 +41,7 @@ $.ajax({
 	url: "https://gncattendance.azurewebsites.net/index2.php",
 	data: data,
 	success: function(data) {
-		name=data['name'];
-		username=data['username'];
-		$("#attdiv").css("display","block");
+		$("#attcard").html(data);
 	}
 });
 </script>
