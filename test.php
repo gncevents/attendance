@@ -1,6 +1,33 @@
 <?php date_default_timezone_set('Asia/Kolkata'); 
 	if(isset($_POST['data'])){
-		$conn_str = getenv('SQLAZURECONNSTR_attendance');
+		
+		echo "<!DOCTYPE html>
+<html>
+<title>GNC Attendance System</title>
+<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+<link rel=\"stylesheet\" href=\"./w3.css\">
+<link href=\"https://fonts.googleapis.com/css?family=Poppins\" rel=\"stylesheet\">
+  <style>
+        * {
+			font-family: Poppins !important;
+		}
+  </style>
+<body>
+<div class=\"w3-container\" style=\"display:none;\" id=\"attdiv\">";
+
+session_start();
+$name="";
+$tbl="";
+	 function connStrToArray($connStr){
+		$connArray = array();
+		$parts = explode(";", $connStr);
+		foreach($parts as $part){
+			$temp = explode("=", $part);
+			$connArray[$temp[0]] = $temp[1];
+		}
+		return $connArray;
+	}
+	$conn_str = getenv('SQLAZURECONNSTR_attendance');
 	$dbConn = connStrToArray($conn_str);
 	
 	$serverName = substr($dbConn["Data Source"],4,34);
@@ -8,6 +35,11 @@
 	$connectionInfo = array( "Database"=>$dbConn["Initial Catalog"], "UID"=>$dbConn["User ID"], "PWD"=>$dbConn["Password"]); 
 
  	$link = sqlsrv_connect( $serverName, $connectionInfo ) or die("Can not Login");
+	 echo $macAddr;
+	 $mac = system('arp -an');
+echo $mac;
+
+
 	$result = sqlsrv_query($link,"select * from attendance where mac='".$macAddr."'");
 	if( $result === false) {
 		print_r( sqlsrv_errors(), true);
@@ -29,21 +61,8 @@
 			$dateadd = sqlsrv_query($link, "insert into ".$tbl." (`date`) values ('".date("Y-m-d")."')");
 		}
 	}
-		echo "<!DOCTYPE html>
-<html>
-<title>GNC Attendance System</title>
-<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
-<link rel=\"stylesheet\" href=\"./w3.css\">
-<link href=\"https://fonts.googleapis.com/css?family=Poppins\" rel=\"stylesheet\">
-  <style>
-        * {
-			font-family: Poppins !important;
-		}
-  </style>
-<body>
-<div class=\"w3-container\" style=\"display:none;\" id=\"attdiv\">
 
-<div style=\"display:flex;justify-content:center;\">
+echo "<div style=\"display:flex;justify-content:center;\">
 <h2>Attendance System</h2></div>
 <div style=\"height:30px;\"></div>
 	<div style=\"display:flex;justify-content:center;\">
