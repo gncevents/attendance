@@ -33,10 +33,9 @@ foreach($lines as $line)
 <script>
 var data = "<?php echo $macAddr; ?>";
 $.ajax({
-	type: "POST",
+	type: "GET",
 	async : true,
-	url: "https://gncattendance.azurewebsites.net/index2.php",
-	data: data,
+	url: "https://gncattendance.azurewebsites.net/index2.php?data="+data,
 	success: function(data1) {
 		console.log(data1);
 		$("#attcard").html(data1);
