@@ -48,10 +48,11 @@ $tbl="";
 	if($tbl!=""){$btns = sqlsrv_query($link,"select * from ".$tbl." where Date='".date("Y-m-d")."'");
 		while($btnrow=sqlsrv_fetch_array($btns,SQLSRV_FETCH_ASSOC)) { 
 			//echo "H".$btnrow[0]."H".$btnrow[1]."H".$btnrow[2]."H";
-			if($btnrow['date']=="")
-			{
-				$dateadd = sqlsrv_query($link, "insert into ".$tbl." (`date`) values ('".date("Y-m-d")."')");
-			}
+			echo $btnrow['date'];
+		}
+		if($btnrow['date']=="")
+		{
+			$dateadd = sqlsrv_query($link, "insert into ".$tbl." (`date`) values ('".date("Y-m-d")."')");
 		}
 	}
 
