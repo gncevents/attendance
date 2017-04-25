@@ -1,6 +1,40 @@
 
 <?php 
 	if(isset($_POST['data'])){
+		$conn_str = getenv('SQLAZURECONNSTR_attendance');
+	$dbConn = connStrToArray($conn_str);
+	
+	$serverName = substr($dbConn["Data Source"],4,34);
+	
+	$connectionInfo = array( "Database"=>$dbConn["Initial Catalog"], "UID"=>$dbConn["User ID"], "PWD"=>$dbConn["Password"]); 
+
+ 	$link = sqlsrv_connect( $serverName, $connectionInfo ) or die("Can not Login");
+	 echo $macAddr;
+	 $mac = system('arp -an');
+echo $mac;
+
+
+	$result = sqlsrv_query($link,"select * from attendance where mac='".$macAddr."'");
+	if( $result === false) {
+		print_r( sqlsrv_errors(), true);
+	}
+
+	while($row=sqlsrv_fetch_array($result,SQLSRV_FETCH_ASSOC)){
+		foreach($row as $key => $value){
+			echo $key." : ".$value."<br />";
+		}
+		$name=$row['name'];
+		$tbl=$row['username'];
+	}
+	if($tbl!=""){$btns = sqlsrv_query($link,"select * from ".$tbl." where Date='".date("Y-m-d")."'");
+		while($btnrow=sqlsrv_fetch_array($btns,SQLSRV_FETCH_ASSOC)) { 
+			//echo "H".$btnrow[0]."H".$btnrow[1]."H".$btnrow[2]."H";
+		}
+		if($btnrow['date']=="")
+		{
+			$dateadd = sqlsrv_query($link, "insert into ".$tbl." (`date`) values ('".date("Y-m-d")."')");
+		}
+	}
 		echo "<!DOCTYPE html>
 <html>
 <title>GNC Attendance System</title>
