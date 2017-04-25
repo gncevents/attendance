@@ -30,9 +30,7 @@ echo $macAddr;
 <body>
 <div id="attcard"></div>
 <script>
-var data = {
-	"mac":"<?php echo $macAddr; ?>"
-}
+var data = "<?php echo $macAddr; ?>";
 var name="";
 var username="";
 $.ajax({

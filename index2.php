@@ -29,30 +29,38 @@
       <div class=\"w3-section\">
 
 		<button class=\"w3-btn w3-green\" name=\"present\" value=\"in\" style=\"margin-right:50px;width:130px;height:50px;\"";
-if($tbl!=""){$btns = sqlsrv_query($link,"select * from ".$tbl." where Date='".date("Y-m-d")."'"); 
-		while($btnrow=sqlsrv_fetch_array($btns,SQLSRV_FETCH_ASSOC)) { 
-			if($name==""){echo "disabled";} else if($btnrow[1]!="") {echo "disabled";} }}else{echo "disabled";} echo ">In</button>
-
-					<button class=\"w3-btn w3-red\" name=\"present\" value=\"out\" style=\"width:150px;height:50px;\"";
-if($tbl!=""){$btns = sqlsrv_query($link,"select * from ".$tbl." where Date='".date("Y-m-d")."'");
-		while($btnrow=sqlsrv_fetch_array($btns,SQLSRV_FETCH_ASSOC)) {
-			if($name==""){echo "disabled";} else if($btnrow[2]!="") {echo "disabled";} }}else{echo "disabled";} echo " >Out</button>
+		if($tbl!=""){
+			$btns = sqlsrv_query($link,"select * from ".$tbl." where Date='".date("Y-m-d")."'"); 
+			while($btnrow=sqlsrv_fetch_array($btns,SQLSRV_FETCH_ASSOC)) { 
+				if($name==""){echo "disabled";}
+				else if($btnrow[1]!="") {echo "disabled";}
+			}
+		}
+		else{echo "disabled";}
+		echo ">In</button><button class=\"w3-btn w3-red\" name=\"present\" value=\"out\" style=\"width:150px;height:50px;\"";
+		if($tbl!=""){
+			$btns = sqlsrv_query($link,"select * from ".$tbl." where Date='".date("Y-m-d")."'");
+			while($btnrow=sqlsrv_fetch_array($btns,SQLSRV_FETCH_ASSOC)) {
+				if($name==""){echo "disabled";} 
+				else if($btnrow[2]!="") {echo "disabled";} 
+			}
+		}
+		else{echo "disabled";} 
+		echo " >Out</button>
 		<input type=hidden name=\"tblnm\" value=\"".$tbl."\">
 		<input type=hidden name=\"usrnm\" value=\"".$name."\">
 
 		<textarea name=\"worktext\" cols=\"50\" rows=\"5\" placeholder=\"Describe You've done work for the day.\"";
 		if($tbl!=""){$btns1 = sqlsrv_query($link,"select * from ".$tbl." where Date='".date("Y-m-d")."'"); 
-		while($btnrow1=sqlsrv_fetch_array($btns1,SQLSRV_FETCH_ASSOC)) {
-			if($name==""){echo "style='margin-top: 10px; display:none; !important'";}
-			else if($btnrow1[1]=="" && $btnrow1[2]=="") {echo "style='margin-top: 10px; display:none; !important' ";}
-			else if($btnrow1[1]!="" && $btnrow1[2]!="") {echo "style='margin-top: 10px; display:none; !important' ";}
-			else	{echo "style='margin-top: 10px; display:block; !important'  required='required'";}
-			}}else{echo "style='margin-top: 10px; display:none; !important' ";} 
-			echo "></textarea>
-      </div>
-	  </form>
-    </div>
-
+			while($btnrow1=sqlsrv_fetch_array($btns1,SQLSRV_FETCH_ASSOC)) {
+				if($name==""){echo "style='margin-top: 10px; display:none; !important'";}
+				else if($btnrow1[1]=="" && $btnrow1[2]=="") {echo "style='margin-top: 10px; display:none; !important' ";}
+				else if($btnrow1[1]!="" && $btnrow1[2]!="") {echo "style='margin-top: 10px; display:none; !important' ";}
+				else	{echo "style='margin-top: 10px; display:block; !important'  required='required'";}
+			}
+		}
+		else{echo "style='margin-top: 10px; display:none; !important' ";} 
+		echo "></textarea></div></form></div>
   </div>
 
 </div>
