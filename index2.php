@@ -41,7 +41,7 @@
 		}
   </style>
 <body>
-<div class=\"w3-container\" style=\"display:none;\" id=\"attdiv\">
+<div class=\"w3-container\">
 
 <div style=\"display:flex;justify-content:center;\">
 <h2>Attendance System</h2></div>

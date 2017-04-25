@@ -13,7 +13,7 @@
 		}
   </style>
 <body>
-<div class=\"w3-container\" style=\"display:none;\" id=\"attdiv\">";
+<div class=\"w3-container\">";
 
 session_start();
 $name="";
