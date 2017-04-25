@@ -1,6 +1,4 @@
-<?php date_default_timezone_set('Asia/Kolkata'); 
-header('Access-Control-Allow-Origin: https://gncattendance.azurewebsites.net');
-header('Access-Control-Allow-Methods: POST');
+<?php date_default_timezone_set('Asia/Kolkata');
 $ipAddress=$_SERVER['REMOTE_ADDR'];
 $macAddr=false;
 
@@ -37,7 +35,6 @@ $.ajax({
 	async : true,
 	url: "https://gncattendance.azurewebsites.net/index2.php?data="+data,
 	success: function(data1) {
-		console.log(data1);
 		$("#attcard").html(data1);
 	}
 });
