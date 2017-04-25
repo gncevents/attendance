@@ -45,7 +45,7 @@ $tbl="";
 		$name=$row['name'];
 		$tbl=$row['username'];
 	}
-	if($tbl!=""){$btns = sqlsrv_query($link,"select * from ".$tbl." where Date='".date("Y-m-d")."'");
+	if($tbl!=""){$btns = sqlsrv_query($link,"select * from ".$tbl." where date='".date("Y-m-d")."'");
 		while($btnrow=sqlsrv_fetch_array($btns,SQLSRV_FETCH_ASSOC)) { 
 			//echo "H".$btnrow[0]."H".$btnrow[1]."H".$btnrow[2]."H";
 			echo $btnrow['date'];
