@@ -28,7 +28,7 @@ if(isset($_POST["present"])){
 			header("location:./");
 		}
 		else{
-			echo "Try Again. !!!";
+			echo "Try to In Again. !!!";
 		}
 	}
 	else if($_POST["present"]=="out")
@@ -39,7 +39,7 @@ if(isset($_POST["present"])){
 			header("location:./");
 		}
 		else{
-			echo "Try Again. !!!";
+			echo "Try to Out Again. !!!";
 		}
 	}
 }
