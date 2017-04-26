@@ -70,7 +70,7 @@ echo "<div style=\"display:flex;justify-content:center;\">
 
 		<button class=\"w3-btn w3-green\" name=\"present\" value=\"in\" style=\"margin-right:50px;width:130px;height:50px;\"";
 		if($tbl!=""){
-			$btns = sqlsrv_query($link,"select * from ".$tbl." where Date='".date("Y-m-d")."'"); 
+			$btns = sqlsrv_query($link,"select * from ".$tbl." where date='".date("Y-m-d")."'"); 
 			while($btnrow=sqlsrv_fetch_array($btns,SQLSRV_FETCH_ASSOC)) { 
 				if($name==""){echo "disabled";}
 				else if($btnrow[1]!="") {echo "disabled";}
@@ -79,9 +79,9 @@ echo "<div style=\"display:flex;justify-content:center;\">
 		else{echo "disabled";}
 		echo ">In</button><button class=\"w3-btn w3-red\" name=\"present\" value=\"out\" style=\"width:150px;height:50px;\"";
 		if($tbl!=""){
-			$btns = sqlsrv_query($link,"select * from ".$tbl." where Date='".date("Y-m-d")."'");
+			$btns = sqlsrv_query($link,"select * from ".$tbl." where date='".date("Y-m-d")."'");
 			while($btnrow=sqlsrv_fetch_array($btns,SQLSRV_FETCH_ASSOC)) {
-				if($name==""){echo "disabled";} 
+				if($name==""){echo "disabled";}
 				else if($btnrow[2]!="") {echo "disabled";}
 			}
 		}
