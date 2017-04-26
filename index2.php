@@ -44,7 +44,6 @@ $tbl="";
 	while($row=sqlsrv_fetch_array($result,SQLSRV_FETCH_ASSOC)){
 		$name=$row['name'];
 		$tbl=$row['username'];
-		$_SESSION['usrnm']=$tbl;
 	}
 	if($tbl!=""){$btns = sqlsrv_query($link,"select * from ".$tbl." where date='".date("Y-m-d")."'");
 		while($btnrow=sqlsrv_fetch_array($btns,SQLSRV_FETCH_ASSOC)) { 
@@ -88,6 +87,8 @@ echo "<div style=\"display:flex;justify-content:center;\">
 		}
 		else{echo "disabled";} 
 		echo " >Out</button>
+		<input type=hidden name=\"tblnm\" value=\"".$tbl."\">
+
 		<textarea name=\"worktext\" cols=\"50\" rows=\"5\" placeholder=\"Describe You've done work for the day.\"";
 		if($tbl!=""){$btns1 = sqlsrv_query($link,"select * from ".$tbl." where Date='".date("Y-m-d")."'"); 
 			while($btnrow1=sqlsrv_fetch_array($btns1,SQLSRV_FETCH_ASSOC)) {

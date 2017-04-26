@@ -22,9 +22,8 @@ if(isset($_POST["present"])){
 	
 	if($_POST["present"]=="in")
 	{
-		
-		$sql="update ".$_SESSION['usrnm']." set in='".date("H:i:s")."' where date='".date("Y-m-d")."'";
-		echo $_SESSION['usrnm']."<br />".$sql;
+		$sql="update ".$_POST["tblnm"]." set in='".date("H:i:s")."' where date='".date("Y-m-d")."'";
+		echo $_POST["tblnm"]."<br />".$sql;
 		if(sqlsrv_query($link, $sql)){
 			sqlsrv_close($link);
 			header("location:http://192.168.60.79:88/attendance");
@@ -35,7 +34,7 @@ if(isset($_POST["present"])){
 	}
 	else if($_POST["present"]=="out")
 	{
-		$sql="update ".$_SESSION['usrnm']." set out='".date("H:i:s")."', work='".$_POST["worktext"]."' where date='".date("Y-m-d")."'";
+		$sql="update ".$_POST["tblnm"]." set out='".date("H:i:s")."', work='".$_POST["worktext"]."' where date='".date("Y-m-d")."'";
 		if(sqlsrv_query($link, $sql)){
 			sqlsrv_close($link);
 			header("location:http://192.168.60.79:88/attendance");
