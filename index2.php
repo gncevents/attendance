@@ -88,7 +88,6 @@ echo "<div style=\"display:flex;justify-content:center;\">
 		else{echo "disabled";} 
 		echo " >Out</button>
 		<input type=hidden name=\"tblnm\" value=\"".$tbl."\">
-		<input type=hidden name=\"usrnm\" value=\"".$name."\">
 
 		<textarea name=\"worktext\" cols=\"50\" rows=\"5\" placeholder=\"Describe You've done work for the day.\"";
 		if($tbl!=""){$btns1 = sqlsrv_query($link,"select * from ".$tbl." where Date='".date("Y-m-d")."'"); 
