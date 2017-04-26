@@ -72,6 +72,9 @@ echo "<div style=\"display:flex;justify-content:center;\">
 		if($tbl!=""){
 			$btns = sqlsrv_query($link,"select * from ".$tbl." where date='".date("Y-m-d")."'"); 
 			while($btnrow=sqlsrv_fetch_array($btns,SQLSRV_FETCH_ASSOC)) { 
+				foreach($btnrow as $key => $value){
+					echo $key.":".$value."<br />";
+				}
 				if($name==""){echo "disabled";}
 				else if($btnrow[1]!="") {echo "disabled";}
 			}
