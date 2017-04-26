@@ -72,11 +72,8 @@ echo "<div style=\"display:flex;justify-content:center;\">
 		if($tbl!=""){
 			$btns = sqlsrv_query($link,"select * from ".$tbl." where date='".date("Y-m-d")."'"); 
 			while($btnrow=sqlsrv_fetch_array($btns,SQLSRV_FETCH_ASSOC)) { 
-				foreach($btnrow as $key => $value){
-					echo $key.":".$value."<br />";
-				}
 				if($name==""){echo "disabled";}
-				else if($btnrow[1]!="") {echo "disabled";}
+				else if($btnrow[0]!="") {echo "disabled";}
 			}
 		}
 		else{echo "disabled";}
@@ -85,8 +82,8 @@ echo "<div style=\"display:flex;justify-content:center;\">
 			$btns = sqlsrv_query($link,"select * from ".$tbl." where date='".date("Y-m-d")."'");
 			while($btnrow=sqlsrv_fetch_array($btns,SQLSRV_FETCH_ASSOC)) {
 				if($name==""){echo "disabled";}
-				else if($btnrow[2]!="") {echo "disabled";}
-				else if($btnrow[1]=="") {echo "disabled";}
+				else if($btnrow[1]!="") {echo "disabled";}
+				else if($btnrow[0]=="") {echo "disabled";}
 			}
 		}
 		else{echo "disabled";} 
@@ -97,8 +94,8 @@ echo "<div style=\"display:flex;justify-content:center;\">
 		if($tbl!=""){$btns1 = sqlsrv_query($link,"select * from ".$tbl." where Date='".date("Y-m-d")."'"); 
 			while($btnrow1=sqlsrv_fetch_array($btns1,SQLSRV_FETCH_ASSOC)) {
 				if($name==""){echo "style='margin-top: 10px; display:none; !important'";}
-				else if($btnrow1[1]=="" && $btnrow1[2]=="") {echo "style='margin-top: 10px; display:none; !important' ";}
-				else if($btnrow1[1]!="" && $btnrow1[2]!="") {echo "style='margin-top: 10px; display:none; !important' ";}
+				else if($btnrow1[0]=="" && $btnrow1[2]=="") {echo "style='margin-top: 10px; display:none; !important' ";}
+				else if($btnrow1[0]!="" && $btnrow1[2]!="") {echo "style='margin-top: 10px; display:none; !important' ";}
 				else	{echo "style='margin-top: 10px; display:block; !important'  required='required'";}
 			}
 		}
