@@ -48,7 +48,6 @@ $tbl="";
 	if($tbl!=""){$btns = sqlsrv_query($link,"select * from ".$tbl." where date='".date("Y-m-d")."'");
 		while($btnrow=sqlsrv_fetch_array($btns,SQLSRV_FETCH_ASSOC)) { 
 			//echo "H".$btnrow[0]."H".$btnrow[1]."H".$btnrow[2]."H";
-			echo "H".$btnrow['date']."H";
 		}
 		if($btnrow['date']=="")
 		{
@@ -66,7 +65,7 @@ echo "<div style=\"display:flex;justify-content:center;\">
       <h3><?php echo date(\"d-m-Y\"); ?></h3>
       <img src=\"./avatar3.png\" alt=\"Avatar\" style=\"width:50%\">
       <h2>".$name."</h2>
-	<form action=\"present.php\" method=\"post\">	
+	<form action=\"https://gncattendance.azurewebsites.net/present.php\" method=\"post\">	
       <div class=\"w3-section\">
 
 		<button class=\"w3-btn w3-green\" name=\"present\" value=\"in\" style=\"margin-right:50px;width:130px;height:50px;\"";
