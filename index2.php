@@ -18,7 +18,7 @@
 session_start();
 $name="";
 $tbl="";
-	 function connStrToArray($connStr){
+	function connStrToArray($connStr){
 		$connArray = array();
 		$parts = explode(";", $connStr);
 		foreach($parts as $part){
