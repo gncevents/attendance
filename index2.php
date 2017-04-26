@@ -73,7 +73,7 @@ echo "<div style=\"display:flex;justify-content:center;\">
 			$btns = sqlsrv_query($link,"select * from ".$tbl." where date='".date("Y-m-d")."'"); 
 			while($btnrow=sqlsrv_fetch_array($btns,SQLSRV_FETCH_ASSOC)) { 
 				if($name==""){echo "disabled";}
-				else if($btnrow[0]!="") {echo "disabled";}
+				else if($btnrow['intime']!="") {echo "disabled";}
 			}
 		}
 		else{echo "disabled";}
@@ -82,8 +82,8 @@ echo "<div style=\"display:flex;justify-content:center;\">
 			$btns = sqlsrv_query($link,"select * from ".$tbl." where date='".date("Y-m-d")."'");
 			while($btnrow=sqlsrv_fetch_array($btns,SQLSRV_FETCH_ASSOC)) {
 				if($name==""){echo "disabled";}
-				else if($btnrow[1]!="") {echo "disabled";}
-				else if($btnrow[0]=="") {echo "disabled";}
+				else if($btnrow['outtime']!="") {echo "disabled";}
+				else if($btnrow['intime']=="") {echo "disabled";}
 			}
 		}
 		else{echo "disabled";} 
@@ -91,24 +91,20 @@ echo "<div style=\"display:flex;justify-content:center;\">
 		<input type=hidden name=\"tblnm\" value=\"".$tbl."\">
 
 		<textarea name=\"worktext\" cols=\"50\" rows=\"5\" placeholder=\"Describe You've done work for the day.\"";
-		if($tbl!=""){$btns1 = sqlsrv_query($link,"select * from ".$tbl." where Date='".date("Y-m-d")."'"); 
+		if($tbl!=""){$btns1 = sqlsrv_query($link,"select * from ".$tbl." where date='".date("Y-m-d")."'"); 
 			while($btnrow1=sqlsrv_fetch_array($btns1,SQLSRV_FETCH_ASSOC)) {
 				if($name==""){echo "style='margin-top: 10px; display:none; !important'";}
-				else if($btnrow1[0]=="" && $btnrow1[2]=="") {echo "style='margin-top: 10px; display:none; !important' ";}
-				else if($btnrow1[0]!="" && $btnrow1[2]!="") {echo "style='margin-top: 10px; display:none; !important' ";}
+				else if($btnrow1['intime']=="" && $btnrow1['outtime']=="") {echo "style='margin-top: 10px; display:none; !important' ";}
+				else if($btnrow1['intime']!="" && $btnrow1['outtime']!="") {echo "style='margin-top: 10px; display:none; !important' ";}
 				else	{echo "style='margin-top: 10px; display:block; !important'  required='required'";}
 			}
 		}
 		else{echo "style='margin-top: 10px; display:none; !important' ";} 
 		echo "></textarea></div></form></div>
-  </div>
-
-</div>
+  </div></div>
 <footer style=\"bottom:0px;margin-bottom:0px;padding-bottom:0px;width:100%;position:absolute;left:0;\">
 <div style=\"display:flex;justify-content:center;background-color:#3f729b;\"><h5 style=\"color:#fff;\">&copy;2016 logicroom, All rights Reserved.</h5></div>
 </footer>
-
-
 </div>
 </body>
 </html>";
