@@ -52,7 +52,7 @@ $tbl="";
 		}
 		if($btnrow['date']=="")
 		{
-			$dateadd = sqlsrv_query($link, "insert into ".$tbl." (`date`) values ('".date("Y-m-d")."')");
+			$dateadd = sqlsrv_query($link, "insert into ".$tbl." (date) values ('".date("Y-m-d")."')");
 		}
 	}
 
@@ -83,7 +83,7 @@ echo "<div style=\"display:flex;justify-content:center;\">
 			$btns = sqlsrv_query($link,"select * from ".$tbl." where Date='".date("Y-m-d")."'");
 			while($btnrow=sqlsrv_fetch_array($btns,SQLSRV_FETCH_ASSOC)) {
 				if($name==""){echo "disabled";} 
-				else if($btnrow[2]!="") {echo "disabled";} 
+				else if($btnrow[2]!="") {echo "disabled";}
 			}
 		}
 		else{echo "disabled";} 
