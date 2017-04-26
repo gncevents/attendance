@@ -22,7 +22,9 @@ if(isset($_POST["present"])){
 	
 	if($_POST["present"]=="in")
 	{
+		
 		$sql="update ".$_SESSION['usrnm']." set in='".date("H:i:s")."' where date='".date("Y-m-d")."'";
+		echo $_SESSION['usrnm']."<br />".$sql;
 		if(sqlsrv_query($link, $sql)){
 			sqlsrv_close($link);
 			header("location:http://192.168.60.79:88/attendance");
