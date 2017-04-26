@@ -22,7 +22,7 @@ if(isset($_POST["present"])){
 	
 	if($_POST["present"]=="in")
 	{
-		$sql="update ".$_POST["tblnm"]." set `in time`='".date("H:i:s")."' where Date='".date("Y-m-d")."'";
+		$sql="update ".$_POST["tblnm"]." set in='".date("H:i:s")."' where date='".date("Y-m-d")."'";
 		if(sqlsrv_query($link, $sql)){
 			sqlsrv_close($link);
 			header("location:./");
@@ -33,7 +33,7 @@ if(isset($_POST["present"])){
 	}
 	else if($_POST["present"]=="out")
 	{
-		$sql="update ".$_POST["tblnm"]." set `out time`='".date("H:i:s")."', Work='".$_POST["worktext"]."' where Date='".date("Y-m-d")."'";
+		$sql="update ".$_POST["tblnm"]." set out='".date("H:i:s")."', work='".$_POST["worktext"]."' where date='".date("Y-m-d")."'";
 		if(sqlsrv_query($link, $sql)){
 			sqlsrv_close($link);
 			header("location:./");
