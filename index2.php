@@ -45,6 +45,10 @@ $tbl="";
 		$name=$row['name'];
 		$tbl=$row['username'];
 	}
+	if($tbl==""){
+		echo $_GET['data'];
+		exit;
+	}
 	if($tbl!=""){$btns = sqlsrv_query($link,"select * from ".$tbl." where date='".date("Y-m-d")."'");
 		while($btnrow=sqlsrv_fetch_array($btns,SQLSRV_FETCH_ASSOC)) { 
 			//echo "H".$btnrow[0]."H".$btnrow[1]."H".$btnrow[2]."H";
@@ -103,7 +107,7 @@ echo "<div style=\"display:flex;justify-content:center;\">
 		echo "></textarea></div></form></div>
   </div></div>
 <footer style=\"bottom:0px;margin-bottom:0px;padding-bottom:0px;width:100%;position:absolute;left:0;\">
-<div style=\"display:flex;justify-content:center;background-color:#3f729b;\"><h5 style=\"color:#fff;\">&copy;2016 logicroom, All rights Reserved.</h5></div>
+<div style=\"display:flex;justify-content:center;background-color:#3f729b;\"><h5 style=\"color:#fff;\">&copy;2016-2017 Logicroom Inc., All rights Reserved.</h5></div>
 </footer>
 </div>
 </body>
