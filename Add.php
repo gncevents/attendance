@@ -1,5 +1,12 @@
+<?php
+
+if(isset($_POST['nam'])){
+
+}else{
+
+?>
 <!DOCTYPE html>
-<html >
+<html>
 <head>
   <meta charset="UTF-8">
   <title>Random Login Form</title>
@@ -83,6 +90,7 @@ body{
 			<div>Add<span>Login</span></div>
 		</div>
 		<div class="login">
+			<form action="" method="POST">
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				<input class="mdl-textfield__input" type="text" id="sample1" name="nam">
 				<label class="mdl-textfield__label" for="sample3" style="color:white;">Name</label>
@@ -95,10 +103,11 @@ body{
 				<input class="mdl-textfield__input" type="text" id="sample3" name="mac">
 				<label class="mdl-textfield__label" for="sample3" style="color:white;">Mac</label>
 			</div>
-			<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" style="float:right;">
+			<button type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" style="float:right;">
 				<i class="material-icons">add</i>
 			</button>
+			</form>
 		</div>
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 </body>
-</html>
+</html><?php } ?>
