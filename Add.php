@@ -1,4 +1,5 @@
 <?php
+header("Access-Control-Allow-Origin: *");
 if(isset($_POST['nam'])){
 	function connStrToArray($connStr){
 		$connArray = array();
@@ -27,7 +28,7 @@ if(isset($_POST['nam'])){
   <meta charset="UTF-8">
   <title>Add User</title>
   
-  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.red-blue.min.css" /> 
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.red-blue.min.css" />
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <style>
