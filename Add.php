@@ -1,15 +1,30 @@
 <?php
-
 if(isset($_POST['nam'])){
+	function connStrToArray($connStr){
+		$connArray = array();
+		$parts = explode(";", $connStr);
+		foreach($parts as $part){
+			$temp = explode("=", $part);
+			$connArray[$temp[0]] = $temp[1];
+		}
+		return $connArray;
+	}
+	$conn_str = getenv('SQLAZURECONNSTR_attendance');
+	$dbConn = connStrToArray($conn_str);
+	
+	$serverName = substr($dbConn["Data Source"],4,34);
+	
+	$connectionInfo = array( "Database"=>$dbConn["Initial Catalog"], "UID"=>$dbConn["User ID"], "PWD"=>$dbConn["Password"]); 
 
-}else{
+ 	$link = sqlsrv_connect( $serverName, $connectionInfo ) or die("Can not Login");
 
-?>
+	$result = sqlsrv_query($link,"insert into attendance (name, mac, username, hours, salary) values ('".$_POST['nam']."', '".$_POST['usrnm']."', '".$_POST['mac']."', '".$_POST['hours']."', '".$_POST['salary']."')");
+} ?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Random Login Form</title>
+  <title>Add User</title>
   
   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.red-blue.min.css" /> 
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
@@ -87,7 +102,7 @@ body{
   <div class="body"></div>
 		<div class="grad"></div>
 		<div class="header">
-			<div>Add<span>Login</span></div>
+			<div>Add<span>User</span></div>
 		</div>
 		<div class="login">
 			<form action="" method="POST">
@@ -103,6 +118,14 @@ body{
 				<input class="mdl-textfield__input" type="text" id="sample3" name="mac">
 				<label class="mdl-textfield__label" for="sample3" style="color:white;">Mac</label>
 			</div>
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" type="text" id="sample4" name="hours">
+				<label class="mdl-textfield__label" for="sample3" style="color:white;">Hours</label>
+			</div>
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" type="text" id="sample5" name="salary">
+				<label class="mdl-textfield__label" for="sample3" style="color:white;">Salary</label>
+			</div>
 			<button type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" style="float:right;">
 				<i class="material-icons">add</i>
 			</button>
@@ -110,4 +133,4 @@ body{
 		</div>
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 </body>
-</html><?php } ?>
+</html>
