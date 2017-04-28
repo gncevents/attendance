@@ -19,6 +19,7 @@ if(isset($_POST['nam'])){
  	$link = sqlsrv_connect( $serverName, $connectionInfo ) or die("Can not Login");
 
 	$result = sqlsrv_query($link,"insert into attendance (name, mac, username, hours, salary) values ('".$_POST['nam']."', '".$_POST['usrnm']."', '".$_POST['mac']."', '".$_POST['hours']."', '".$_POST['salary']."')");
+	$result = sqlsrv_query($link,"create table ".$_POST['usrnm']." (date varchar(12), intime varchar(10), outtime varchar(10), work varchar(100), UNIQUE NONCLUSTERED ([date] ASC)");
 } ?>
 <!DOCTYPE html>
 <html>
