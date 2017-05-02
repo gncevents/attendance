@@ -30,7 +30,8 @@ function getdataassoc($stmt){
     $row = sqlsrv_fetch_array($stmt,SQLSRV_FETCH_ASSOC);
     return $row;
 }
-$stmt = query("select * from attendance");
+$query = "select * from attendance";
+$stmt = query($query);
 print_r($stmt);
 if($stmt!=false){
 	while($row=getdataassoc($stmt)){
