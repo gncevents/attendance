@@ -2,7 +2,7 @@
 include 'cls_require.php';
 $stmt = query("select * from attendance");
 if($stmt==false){
-	echo "false";
+	echo $stmt;
 }else{
 	while($row=getdataassoc($stmt)){
 		foreach($row as $key => $value){

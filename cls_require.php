@@ -20,7 +20,7 @@ $link = sqlsrv_connect( $serverName, $connectionInfo ) or die("Can not Login");
 function query($quer){
     $stmt = sqlsrv_query($link, $quer);
     if( $stmt === false) {
-		return false;
+		return sqlsrv_errors();
 	}
     else{
         return $stmt;
@@ -30,5 +30,15 @@ function getdataassoc($stmt){
     $row = sqlsrv_fetch_array($stmt,SQLSRV_FETCH_ASSOC);
     return $row;
 }
-
+$stmt = query("select * from attendance");
+if($stmt==false){
+	echo $stmt;
+}else{
+	while($row=getdataassoc($stmt)){
+		foreach($row as $key => $value){
+			echo $key.":".$value."<br />";
+		}
+		echo "<br />";
+	}
+}
 ?>
