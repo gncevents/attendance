@@ -19,11 +19,11 @@ $link = sqlsrv_connect( $serverName, $connectionInfo ) or die("Can not Login");
 
 function query($quer){
     $stmt = sqlsrv_query($quer);
-    if($stmt!=false){
-        return $stmt;
-    }
+    if( $stmt === false) {
+		return false;
+	}
     else{
-        return false;
+        return $stmt;
     }
 }
 function getdataassoc($stmt){
