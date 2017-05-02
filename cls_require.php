@@ -18,7 +18,7 @@ $connectionInfo = array( "Database"=>$dbConn["Initial Catalog"], "UID"=>$dbConn[
 $link = sqlsrv_connect( $serverName, $connectionInfo ) or die("Can not Login");
 
 function query($quer){
-    $stmt = sqlsrv_query($quer);
+    $stmt = sqlsrv_query($link, $quer);
     if( $stmt === false) {
 		return false;
 	}
