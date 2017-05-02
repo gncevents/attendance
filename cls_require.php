@@ -31,9 +31,8 @@ function getdataassoc($stmt){
     return $row;
 }
 $stmt = query("select * from attendance");
-if($stmt==false){
-	echo $stmt;
-}else{
+print_r($stmt);
+if($stmt!=false){
 	while($row=getdataassoc($stmt)){
 		foreach($row as $key => $value){
 			echo $key.":".$value."<br />";
