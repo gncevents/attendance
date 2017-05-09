@@ -1,18 +1,15 @@
 <?php
-include 'cls_require.php';
-$stmt = query("select * from attendance");
-if($stmt==false){
-	echo $stmt;
-}else{
-	while($row=getdataassoc($stmt)){
+require 'cls_require.php';
+$query = "select * from attendance";
+$stmt = new connect();
+//$result = $stmt->query($query);
+	$row=$stmt->query($query);
+	//while($row=$stmt->getdataassoc($result)){
 		foreach($row as $key => $value){
-			echo $key.":".$value."<br />";
+			foreach($value as $key=>$value1){
+				echo $key.":".$value1."<br />";
+			}
+			echo "<br />";
 		}
 		echo "<br />";
-	}
-}
-/*if($tbl==""){
-	echo $_GET['data'];
-	exit;
-}*/
 ?>

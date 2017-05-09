@@ -1,44 +1,32 @@
 <?php
-function connStrToArray($connStr){
-    $connArray = array();
-    $parts = explode(";", $connStr);
-    foreach($parts as $part){
-        $temp = explode("=", $part);
-        $connArray[$temp[0]] = $temp[1];
+class connect{
+    private $stmt = NULL;
+    public function query($quer){
+        function connStrToArray($connStr){
+            $connArray = array();
+            $parts = explode(";", $connStr);
+            foreach($parts as $part){
+                $temp = explode("=", $part);
+                $connArray[$temp[0]] = $temp[1];
+            }
+            return $connArray;
+        }
+        $conn_str = getenv('SQLAZURECONNSTR_attendance');
+        $dbConn = connStrToArray($conn_str);
+        $serverName = substr($dbConn["Data Source"],4,34);
+        $link = sqlsrv_connect( $serverName, $connectionInfo );
+        $stmt = sqlsrv_query($link, $quer);
+        if( $stmt === false) {
+            return sqlsrv_errors();
+        }
+        else{
+            $i=0;
+            while($row = sqlsrv_fetch_array($stmt,SQLSRV_FETCH_ASSOC)){
+                $rows[$i]=$row;
+                $i++;
+            }
+            return $rows;
+        }
     }
-    return $connArray;
-}
-$conn_str = getenv('SQLAZURECONNSTR_attendance');
-$dbConn = connStrToArray($conn_str);
-
-$serverName = substr($dbConn["Data Source"],4,34);
-
-$connectionInfo = array( "Database"=>$dbConn["Initial Catalog"], "UID"=>$dbConn["User ID"], "PWD"=>$dbConn["Password"]); 
-
-$link = sqlsrv_connect( $serverName, $connectionInfo ) or die("Can not Login");
-
-function query($quer){
-    $stmt = sqlsrv_query($link, $quer);
-    if( $stmt === false) {
-		return sqlsrv_errors();
-	}
-    else{
-        return $stmt;
-    }
-}
-function getdataassoc($stmt){
-    $row = sqlsrv_fetch_array($stmt,SQLSRV_FETCH_ASSOC);
-    return $row;
-}
-$query = "select * from attendance";
-$stmt = query($query);
-print_r($stmt);
-if($stmt!=false){
-	while($row=getdataassoc($stmt)){
-		foreach($row as $key => $value){
-			echo $key.":".$value."<br />";
-		}
-		echo "<br />";
-	}
 }
 ?>
