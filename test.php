@@ -1,5 +1,5 @@
 <?php
-require 'cls_require.php';
+require './cls_require.php';
 $query = "select * from attendance";
 $stmt = new connect();
 //$result = $stmt->query($query);
