@@ -18,46 +18,46 @@
 session_start();
 $name="";
 $tbl="";
-	function connStrToArray($connStr){
-		$connArray = array();
-		$parts = explode(";", $connStr);
-		foreach($parts as $part){
-			$temp = explode("=", $part);
-			$connArray[$temp[0]] = $temp[1];
-		}
-		return $connArray;
+function connStrToArray($connStr){
+	$connArray = array();
+	$parts = explode(";", $connStr);
+	foreach($parts as $part){
+		$temp = explode("=", $part);
+		$connArray[$temp[0]] = $temp[1];
 	}
-	$conn_str = getenv('SQLAZURECONNSTR_attendance');
-	$dbConn = connStrToArray($conn_str);
-	
-	$serverName = substr($dbConn["Data Source"],4,34);
-	
-	$connectionInfo = array( "Database"=>$dbConn["Initial Catalog"], "UID"=>$dbConn["User ID"], "PWD"=>$dbConn["Password"]); 
+	return $connArray;
+}
+$conn_str = getenv('SQLAZURECONNSTR_attendance');
+$dbConn = connStrToArray($conn_str);
 
- 	$link = sqlsrv_connect( $serverName, $connectionInfo ) or die("Can not Login");
+$serverName = substr($dbConn["Data Source"],4,34);
 
-	$result = sqlsrv_query($link,"select * from attendance where mac='".$_GET['data']."'");
-	if( $result === false) {
-		print_r( sqlsrv_errors(), true);
-	}
+$connectionInfo = array( "Database"=>$dbConn["Initial Catalog"], "UID"=>$dbConn["User ID"], "PWD"=>$dbConn["Password"]); 
 
-	while($row=sqlsrv_fetch_array($result,SQLSRV_FETCH_ASSOC)){
-		$name=$row['name'];
-		$tbl=$row['username'];
+$link = sqlsrv_connect( $serverName, $connectionInfo ) or die("Can not Login");
+
+$result = sqlsrv_query($link,"select * from attendance where mac='".$_GET['data']."'");
+if( $result === false) {
+	print_r( sqlsrv_errors(), true);
+}
+
+while($row=sqlsrv_fetch_array($result,SQLSRV_FETCH_ASSOC)){
+	$name=$row['name'];
+	$tbl=$row['username'];
+}
+if($tbl==""){
+	echo $_GET['data'];
+	exit;
+}
+if($tbl!=""){$btns = sqlsrv_query($link,"select * from ".$tbl." where date='".date("Y-m-d")."'");
+	while($btnrow=sqlsrv_fetch_array($btns,SQLSRV_FETCH_ASSOC)) { 
+		//echo "H".$btnrow[0]."H".$btnrow[1]."H".$btnrow[2]."H";
 	}
-	if($tbl==""){
-		echo $_GET['data'];
-		exit;
+	if($btnrow['date']=="")
+	{
+		$dateadd = sqlsrv_query($link, "insert into ".$tbl." (date) values ('".date("Y-m-d")."')");
 	}
-	if($tbl!=""){$btns = sqlsrv_query($link,"select * from ".$tbl." where date='".date("Y-m-d")."'");
-		while($btnrow=sqlsrv_fetch_array($btns,SQLSRV_FETCH_ASSOC)) { 
-			//echo "H".$btnrow[0]."H".$btnrow[1]."H".$btnrow[2]."H";
-		}
-		if($btnrow['date']=="")
-		{
-			$dateadd = sqlsrv_query($link, "insert into ".$tbl." (date) values ('".date("Y-m-d")."')");
-		}
-	}
+}
 
 echo "<div style=\"display:flex;justify-content:center;\">
 <h2>Attendance System</h2></div>
@@ -112,5 +112,5 @@ echo "<div style=\"display:flex;justify-content:center;\">
 </div>
 </body>
 </html>";
-	}
+}
 ?>

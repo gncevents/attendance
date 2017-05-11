@@ -26,9 +26,7 @@ class connect{
                 $rows[$i]=$row;
                 $i++;
             }
-            foreach($rows as $key => $value){
-            }
-            return $value;
+            return $rows;
         }
     }
 }
