@@ -1,7 +1,8 @@
 <?php
 class connect{
-    private $stmt = NULL;
-    public function connStrToArray($connStr){
+    private $stmt = NULL;   
+    public function query($quer){
+        function connStrToArray($connStr){
         $connArray = array();
         $parts = explode(";", $connStr);
         foreach($parts as $part){
@@ -10,7 +11,6 @@ class connect{
         }
         return $connArray;
     }
-    public function query($quer){
         $conn_str = getenv('SQLAZURECONNSTR_attendance');
         $dbConn = connStrToArray($conn_str);
         $serverName = substr($dbConn["Data Source"],4,34);
