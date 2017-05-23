@@ -33,7 +33,7 @@ var data = "<?php echo $macAddr; ?>";
 $.ajax({
 	type: "GET",
 	async : true,
-	url: "https://gncattendance.azurewebsites.net/index2.php?data="+data,
+	url: "https://gncattendance1.azurewebsites.net/index2.php?data="+data,
 	success: function(data1) {
 		$("#attcard").html(data1);
 	}

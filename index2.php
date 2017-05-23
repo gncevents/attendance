@@ -1,6 +1,7 @@
 <?php date_default_timezone_set('Asia/Kolkata'); 
 	if(isset($_GET['data'])){
-		require './cls_require.php';		
+		require './cls_require.php';
+		require './conn.php';
 		echo "<!DOCTYPE html>
 <html>
 <title>GNC Attendance System</title>
@@ -20,7 +21,7 @@ $name="";
 $tbl="";
 	$query = "select * from attendance where mac='".$_GET['data']."'";
 	$stmt = new connect();
-	$row=$stmt->query($query);
+	$row=$stmt->query($link,$query);
 	foreach($row as $key => $value){
 		foreach($value as $key=>$value1){
 			if($key == "name"){
@@ -35,17 +36,15 @@ $tbl="";
 		echo $_GET['data'];
 		exit;
 	}
+	
 	if($tbl!=""){
-		$btns=$stmt->query("select * from ".$tbl." where date='".date("Y-m-d")."'");
-		/*while($btnrow=sqlsrv_fetch_array($btns,SQLSRV_FETCH_ASSOC)) { 
-			//echo "H".$btnrow[0]."H".$btnrow[1]."H".$btnrow[2]."H";
-		}
-		if($btnrow['date']=="")
-		{
-			$dateadd = sqlsrv_query($link, "insert into ".$tbl." (date) values ('".date("Y-m-d")."')");
-		}*/
-		if($btns == false){
-			$stmt->onlyquery("insert into ".$tbl." (date) values ('".date("Y-m-d")."')");
+	    $btns="something";
+	    
+	    $selectdate = "select * from ".$tbl." where date='".date("Y-m-d")."'";
+		//$row=$stmt->query($query);
+		$btns=$stmt->query($link,$selectdate);
+		if($btns == ""){
+			$stmt->onlyquery($link,"insert into ".$tbl." (date) values ('".date("Y-m-d")."')");
 		}
 	}
 
@@ -59,25 +58,24 @@ echo "<div style=\"display:flex;justify-content:center;\">
       <h3><?php echo date(\"d-m-Y\"); ?></h3>
       <img src=\"./avatar3.png\" alt=\"Avatar\" style=\"width:50%\">
       <h2>".$name."</h2>
-	<form action=\"https://gncattendance.azurewebsites.net/present.php\" method=\"post\">	
+	<form action=\"https://gncattendance1.azurewebsites.net/present.php\" method=\"post\">	
       <div class=\"w3-section\">
 
 		<button class=\"w3-btn w3-green\" name=\"present\" value=\"in\" style=\"margin-right:50px;width:130px;height:50px;\" ";
-		if($tbl!=""){
-			$btns1=$stmt->query("select * from ".$tbl." where date='".date("Y-m-d")."'");
-			if($btns1!=null && $btns1!=""){
-				if(is_array($btns1)){
-					foreach($btns1 as $key => $value){
-						foreach($value as $key=>$value1){
-							if($name==""){echo "disabled";}
-							else if($key == "intime"){
-								if($value1 != ""){
-									echo "disabled";
-								}
+		if($tbl!="" && $btns!=""){
+			$inbtn=$stmt->query($link,"select * from ".$tbl." where date='".date("Y-m-d")."'");
+			
+			if($inbtn!=null && $inbtn!=""){	    
+				foreach($inbtn as $key => $value){
+					foreach($value as $key1=>$value1){
+						if($name==""){echo "disabled";}
+						else if($key1 == "intime"){
+							if($value1 != ""){
+								echo "disabled";
 							}
 						}
-						//else if($btns1['intime']!="") {echo "disabled";}
 					}
+					//else if($btns1['intime']!="") {echo "disabled";}
 				}
 			}
 			/*$btns = sqlsrv_query($link,"select * from ".$tbl." where date='".date("Y-m-d")."'"); 
@@ -86,10 +84,10 @@ echo "<div style=\"display:flex;justify-content:center;\">
 				else if($btnrow['intime']!="") {echo "disabled";}
 			}*/
 		}
-		else{echo "disabled";}
+		else if ($btns!=""){echo "disabled='disabled'";}
 		echo ">In</button><button class=\"w3-btn w3-red\" name=\"present\" value=\"out\" style=\"width:150px;height:50px;\" ";
 		if($tbl!=""){
-			$outbtns=$stmt->query("select * from ".$tbl." where date='".date("Y-m-d")."'");
+		    $outbtns=$stmt->query($link,"select * from ".$tbl." where date='".date("Y-m-d")."'");
 			if($outbtns!=null | $outbtns!=""){
 				if(is_array($outbtns)){
 					foreach($outbtns as $key => $value){
@@ -122,8 +120,11 @@ echo "<div style=\"display:flex;justify-content:center;\">
 
 		<textarea name=\"worktext\" cols=\"50\" rows=\"5\" placeholder=\"Describe You've done work for the day.\"";
 		$intime = $outtime = "";
-		if($tbl!=""){
-			$btns1=$stmt->query("select * from ".$tbl." where date='".date("Y-m-d")."'");
+		if($btns==""){
+		    echo "style='margin-top: 10px; display:none; !important' ";
+		}
+		else if($tbl!=""){
+			$btns1=$stmt->query($link,"select * from ".$tbl." where date='".date("Y-m-d")."'");
 			if($btns1!=null | $btns1!=""){
 				if(is_array($btns1)){
 					foreach($btns1 as $key => $value){
@@ -157,7 +158,7 @@ echo "<div style=\"display:flex;justify-content:center;\">
 		}*/
 
 		if($intime!="" && $outtime==""){
-			echo "style='margin-top: 10px; display:block; !important' ";
+			echo "style='margin-top: 10px; display:block; !important' required";
 		}
 
 		/*if($tbl!=""){$btns1 = sqlsrv_query($link,"select * from ".$tbl." where date='".date("Y-m-d")."'"); 
