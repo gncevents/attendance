@@ -1,4 +1,5 @@
 <?php
+require './conn.php';
 class connect{
     private $stmt = NULL;
     public function query($link,$quer){
@@ -26,6 +27,10 @@ class connect{
         $stmt = sqlsrv_query($link, $quer);
         if( $stmt === false) {
             return sqlsrv_errors();
+        }
+        else
+        {
+            return true;
         }
         sqlsrv_close($link);
     }

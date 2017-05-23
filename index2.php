@@ -1,7 +1,6 @@
 <?php date_default_timezone_set('Asia/Kolkata'); 
 	if(isset($_GET['data'])){
 		require './cls_require.php';
-		require './conn.php';
 		echo "<!DOCTYPE html>
 <html>
 <title>GNC Attendance System</title>
