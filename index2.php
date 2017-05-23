@@ -58,7 +58,7 @@ echo "<div style=\"display:flex;justify-content:center;\">
       <h3><?php echo date(\"d-m-Y\"); ?></h3>
       <img src=\"./avatar3.png\" alt=\"Avatar\" style=\"width:50%\">
       <h2>".$name."</h2>
-	<form action=\"https://gncattendance1.azurewebsites.net/present.php\" method=\"post\">	
+	<form action=\"https://gncattendance.azurewebsites.net/present.php\" method=\"post\">	
       <div class=\"w3-section\">
 
 		<button class=\"w3-btn w3-green\" name=\"present\" value=\"in\" style=\"margin-right:50px;width:130px;height:50px;\" ";
