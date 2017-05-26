@@ -28,8 +28,8 @@ if(isset($_POST['nam'])){
   <meta charset="UTF-8">
   <title>Add User</title>
   
-  <link rel="stylesheet" href="./material.red-blue.min.css" />
-  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <link rel="stylesheet" href="./css/material.red-blue.min.css" />
+  <script defer src="./js/material.min.js"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <style>
 body{
@@ -133,6 +133,6 @@ body{
 			</button>
 			</form>
 		</div>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <script src='./js/jquery.min.js'></script>
 </body>
 </html>
