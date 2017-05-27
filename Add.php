@@ -10,7 +10,7 @@ if(isset($_POST['nam'])){
 		}
 		return $connArray;
 	}
-	$conn_str = getenv('SQLAZURECONNSTR_attendance1');
+	$conn_str = getenv('SQLAZURECONNSTR_attendanceone');
 	$dbConn = connStrToArray($conn_str);
 	
 	$serverName = substr($dbConn["Data Source"],4,34);
