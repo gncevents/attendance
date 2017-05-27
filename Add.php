@@ -30,8 +30,8 @@ if(isset($_POST['nam'])){
  	$link2 = sqlsrv_connect( $serverName2, $connectionInfo2 ) or die(print_r(sqlsrv_errors()));
 
 
-	$result = sqlsrv_query($link2,"insert into attendance (name, mac, username, hours, salary) values ('".$_POST['nam']."', '".$_POST['mac']."', '".$_POST['usrnm']."', '".$_POST['hours']."', '".$_POST['salary']."')");
-	$result = sqlsrv_query($link,"create table ".$_POST['usrnm']." (date varchar(12) UNIQUE, intime varchar(10), outtime varchar(10), work varchar(100))");
+	$result = sqlsrv_query($link,"insert into attendance (name, mac, username, hours, salary) values ('".$_POST['nam']."', '".$_POST['mac']."', '".$_POST['usrnm']."', '".$_POST['hours']."', '".$_POST['salary']."')");
+	$result = sqlsrv_query($link2,"create table ".$_POST['usrnm']." (date varchar(12) UNIQUE, intime varchar(10), outtime varchar(10), work varchar(100))");
 	sqlsrv_close($link);
 } ?>
 <!DOCTYPE html>
