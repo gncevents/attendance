@@ -13,13 +13,24 @@ if(isset($_POST['nam'])){
 	$conn_str = getenv('SQLAZURECONNSTR_attendanceone');
 	$dbConn = connStrToArray($conn_str);
 	
-	$serverName = substr($dbConn["Data Source"],4,34);
+	$serverName = substr($dbConn["Data Source"],4,35);
 	
 	$connectionInfo = array( "Database"=>$dbConn["Initial Catalog"], "UID"=>$dbConn["User ID"], "PWD"=>$dbConn["Password"]); 
 
  	$link = sqlsrv_connect( $serverName, $connectionInfo ) or die(print_r(sqlsrv_errors()));
 
-	$result = sqlsrv_query($link,"insert into attendance (name, mac, username, hours, salary) values ('".$_POST['nam']."', '".$_POST['mac']."', '".$_POST['usrnm']."', '".$_POST['hours']."', '".$_POST['salary']."')");
+	
+	$conn_str2 = getenv('SQLAZURECONNSTR_attendance');
+	$dbConn2 = connStrToArray($conn_str2);
+	
+	$serverName2 = substr($dbConn["Data Source"],4,34);
+	
+	$connectionInfo2 = array( "Database"=>$dbConn["Initial Catalog"], "UID"=>$dbConn["User ID"], "PWD"=>$dbConn["Password"]); 
+
+ 	$link2 = sqlsrv_connect( $serverName2, $connectionInfo2 ) or die(print_r(sqlsrv_errors()));
+
+
+	$result = sqlsrv_query($link2,"insert into attendance (name, mac, username, hours, salary) values ('".$_POST['nam']."', '".$_POST['mac']."', '".$_POST['usrnm']."', '".$_POST['hours']."', '".$_POST['salary']."')");
 	$result = sqlsrv_query($link,"create table ".$_POST['usrnm']." (date varchar(12) UNIQUE, intime varchar(10), outtime varchar(10), work varchar(100))");
 	sqlsrv_close($link);
 } ?>
