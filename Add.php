@@ -17,7 +17,7 @@ if(isset($_POST['nam'])){
 	
 	$connectionInfo = array( "Database"=>$dbConn["Initial Catalog"], "UID"=>$dbConn["User ID"], "PWD"=>$dbConn["Password"]); 
 
- 	$link = sqlsrv_connect( $serverName, $connectionInfo ) or die(sqlsrv_errors());
+ 	$link = sqlsrv_connect( $serverName, $connectionInfo ) or die(print_r(sqlsrv_errors()));
 
 	$result = sqlsrv_query($link,"insert into attendance (name, mac, username, hours, salary) values ('".$_POST['nam']."', '".$_POST['mac']."', '".$_POST['usrnm']."', '".$_POST['hours']."', '".$_POST['salary']."')");
 	$result = sqlsrv_query($link,"create table ".$_POST['usrnm']." (date varchar(12) UNIQUE, intime varchar(10), outtime varchar(10), work varchar(100))");
