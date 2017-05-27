@@ -1,6 +1,5 @@
 <?php
-require './conn.1.php';
-class connect{
+class connect1{
     private $stmt = NULL;
     public function query($link,$quer){
         $rows = null;
