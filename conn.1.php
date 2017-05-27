@@ -10,7 +10,7 @@ function connStrToArray($connStr){
 }
 $conn_str = getenv('SQLAZURECONNSTR_attendance1');
 $dbConn = connStrToArray($conn_str);
-$serverName = substr($dbConn["Data Source"],4,34);
+$serverName = substr($dbConn["Data Source"],4,35);
 $connectionInfo = array( "Database"=>$dbConn["Initial Catalog"], "UID"=>$dbConn["User ID"], "PWD"=>$dbConn["Password"]);
 $link = sqlsrv_connect( $serverName, $connectionInfo );
 ?>

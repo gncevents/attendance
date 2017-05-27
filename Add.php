@@ -23,7 +23,7 @@ if(isset($_POST['nam'])){
 	 $conn_str2 = getenv('SQLAZURECONNSTR_attendance');
 	$dbConn2 = connStrToArray($conn_str2);
 	
-	$serverName2 = substr($dbConn2["Data Source"],4,35);
+	$serverName2 = substr($dbConn2["Data Source"],4,34);
 	
 	$connectionInfo2 = array( "Database"=>$dbConn2["Initial Catalog"], "UID"=>$dbConn2["User ID"], "PWD"=>$dbConn2["Password"]); 
 
