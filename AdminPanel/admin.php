@@ -18,9 +18,9 @@
 <?php
 session_start();
 $db="attendance";
-include '../conn.php';
-include '../cls_require.php';
-include '../cls_require.1.php';
+require '../conn.php';
+require '../cls_require.php';
+require '../cls_require.1.php';
 
 function connStrToArray2($connStr){
     $connArray = array();

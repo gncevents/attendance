@@ -8,7 +8,7 @@ function connStrToArray($connStr){
     }
     return $connArray;
 }
-$conn_str = "Data Source=tcp:gncattendance.database.windows.net,1433;Initial Catalog=attendance;User ID=GNCAdmin@gncattendance;Password=Admin@GNC";//getenv('SQLAZURECONNSTR_attendance');
+$conn_str = getenv('SQLAZURECONNSTR_attendance'); //"Data Source=tcp:gncattendance.database.windows.net,1433;Initial Catalog=attendance;User ID=GNCAdmin@gncattendance;Password=Admin@GNC";
 $dbConn = connStrToArray($conn_str);
 $serverName = substr($dbConn["Data Source"],4,34);
 $connectionInfo = array( "Database"=>$dbConn["Initial Catalog"], "UID"=>$dbConn["User ID"], "PWD"=>$dbConn["Password"]);
