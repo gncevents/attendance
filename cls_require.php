@@ -1,5 +1,4 @@
 <?php
-require './conn.php';
 class connect{
     private $stmt = NULL;
     public function query($link,$quer){
