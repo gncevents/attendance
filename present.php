@@ -1,6 +1,7 @@
 <?php date_default_timezone_set('Asia/Kolkata'); 
 
 if(isset($_POST["present"])){
+	require './conn.php';
 	require './cls_require.php';
 	session_start();
 		
