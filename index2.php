@@ -1,6 +1,6 @@
 <?php date_default_timezone_set('Asia/Kolkata'); 
 	if(isset($_GET['data'])){
-		require '../conn.php';
+		require './conn.php';
 		require './cls_require.php';
 		require './cls_require.1.php';
 		echo "<!DOCTYPE html>
