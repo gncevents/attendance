@@ -1,9 +1,9 @@
 <?php 
-$link = mysqli_connect('localhost', 'root', 'NoPassword') or die("can not Login.");
-$db="attendance";
-mysqli_select_db($link,$db) or die("can not Login(Database Error.)");
+require './conn.1.php';
+require './cls_require.php';
 
 $tbl="salary";
+$stmt = new connect();
 	
 if(isset($_POST['salname'])){
 	if(isset($_POST['salary'])){
@@ -12,7 +12,8 @@ if(isset($_POST['salname'])){
 				if(isset($_POST['salyear'])){
 					if(isset($_POST['whours'])){
 						$salpaid=$_POST['salary'] + $_POST['incentive'];
-						$rec = mysqli_query($link, "insert into ".$tbl." (`name`, `username`, `salpaid`, `incentive`, `month`, `workhours`, `calsal`) values ( (select `Name` from attendance where `user`='".$_POST['salname']."'), '".$_POST['salname']."', ".$salpaid.", ".$_POST['incentive'].", '".$_POST['salmonth'].", ".$_POST['salyear']."', ".$_POST['whours'].", ".$_POST['salary'].")") or die(mysqli_errno($link) . ": " . mysqli_error($link));
+						$query = "insert into ".$tbl." (name, username, salpaid, incentive, month, workhours, calsal) values ( (select Name from attendance where username='".$_POST['salname']."'), '".$_POST['salname']."', ".$salpaid.", ".$_POST['incentive'].", '".$_POST['salmonth'].", ".$_POST['salyear']."', ".$_POST['whours'].", ".$_POST['salary'].")";
+						$rec = $stmt->query($link2, $query) or die("Try Again !!!");
 					}
 					else
 					{

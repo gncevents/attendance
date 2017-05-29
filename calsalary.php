@@ -1,21 +1,23 @@
 <?php 
 session_start();
-$db="attendance";
-$link = mysqli_connect('localhost', 'root', 'NoPassword') or die("can not Login.");
-mysqli_select_db($link,$db) or die("can not Login(Database Error.)");
+require './conn.php';
+require './conn.1.php';
+require './cls_require.php';
 $tbl = "";
 if(isset($_GET['q'])){
 	$q=$_GET["q"];
 	if (strlen($q) > 0) {
 		list($usrnm, $mon, $year) = explode(':', $q);
-		$result = mysqli_query($link,"SELECT * FROM `".$usrnm."` WHERE Date like '".$year."-".$mon."___' and `Out Time` not like ''");
+		$stmt = new connect();
+		$row=$stmt->query($link,"SELECT * FROM ".$usrnm." WHERE Date like '".$year."-".$mon."___' and outtime not like ''");
+		//$result = mysqli_query($link,"SELECT * FROM `".$usrnm."` WHERE Date like '".$year."-".$mon."___' and `Out Time` not like ''");
 		$dayscount=$totalworkhours=$totalworkingmins=0;
-		while($row=mysqli_fetch_array($result, MYSQLI_NUM)){
+		foreach($row as $key => $value){
 			$dayscount++;
-			if($row[2]!="" & $row[1]!=""){
+			if($value['intime']!="" & $value['outtime']!=""){
 				$hour=$hour1=$min=$min1=$sec=$sec1=0;
-				$time = $row[1];
-				$time1 = $row[2];
+				$time = $value['intime'];
+				$time1 = $value['outtime'];
 				list($hour, $min, $sec) = explode(':', $time);
 				list($hour1, $min1, $sec1) = explode(':', $time1);
 				if($min1<$min){
@@ -37,11 +39,17 @@ if(isset($_GET['q'])){
 		//$result = mysqli_query($link,"insert into ");
 		
 		$calsal=0;
-		$result = mysqli_query($link,"SELECT * FROM `predefined` WHERE usernm='".$usrnm."'");
-		$row=mysqli_fetch_array($result, MYSQLI_NUM);
+		//$stmt = new connect();
+		//$result = $stmt->query($link,"SELECT * FROM attendance WHERE usernm='".$usrnm."'");
 
-		$bassal=$row[2];
-		$hours = $row[1];
+		$stmt = new connect();
+		$row=$stmt->query($link2,"SELECT * FROM attendance WHERE username='".$usrnm."'");
+
+		//$row=mysqli_fetch_array($result, MYSQLI_NUM);
+		foreach($row as $key => $basvalue){
+			$bassal=$basvalue['salary'];
+			$hours = $basvalue['hours'];
+		}
 		$mondays=cal_days_in_month(CAL_GREGORIAN,$mon,$year);
 		$caldays=0;
 		if($hours>0){
@@ -70,7 +78,7 @@ else if(isset($_GET["h"])){
 	$h=$_GET["h"];
 	if (strlen($h) > 0) {
 		list($hnm, $hmon, $hyear) = explode(':', $h);
-		$query="SELECT * FROM `salary`";
+		$query="SELECT * FROM salary";
 		if($hnm!="No" | $hmon!="No" | $hyear!="No"){
 			$query.= " WHERE ";
 		}
@@ -94,48 +102,56 @@ else if(isset($_GET["h"])){
 				$query.= " month like '____".$hyear."'";
 			}
 		}
-		$result = mysqli_query($link,$query);
+		$stmt = new connect();
+		$row=$stmt->query($link2,$query);
+		//$result = mysqli_query($link,$query);
 		echo "<table style='border: 1px solid #ccc;  box-shadow:0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12); '><tr style='background: bottom right 15% no-repeat #ff5252; '><th>No.</th><th>Name</th><th>Fixed<br />Hours</th><th>Hours<br />Worked<th>Days<br />worked<th>Fixed<br />Salary<th>Calculated<br />Salary<th>Incentive<th>Salary<br />Paid<th>Month<th>Delete</tr>";
 		$i=$j=0;
-			while($row=mysqli_fetch_array($result,MYSQLI_NUM)){
-				$i++;
-				$result2 = mysqli_query($link,"select hours,bassal from predefined where usernm like '".$row[2]."'");
-				while($row2=mysqli_fetch_array($result2,MYSQLI_NUM)){
-					$basssalw = $row2[1];
-					$hoursd = $row2[0];
-				}
-				$monthNum = substr($row[5],0,2);
-				$year = substr($row[5],3);
-				$mondays=cal_days_in_month(CAL_GREGORIAN,$monthNum,$year);
-				
-				}
-				echo "<tr><td style='border:1px solid #ccc;'>".$i."</td>";
-				echo "<td style='border:1px solid #ccc;'>".$row[1]."</td>";
-				echo "<td style='border:1px solid #ccc;'>".$hoursd."</td>";
-				echo "<td style='border:1px solid #ccc;'>".$row[6]."</td>";
-				if(floor(($row[6]*$mondays)/$hoursd)>$mondays){
-					echo "<td style='border:1px solid #ccc;'>".$mondays."</td>";
-				}
-				else {
-					echo "<td style='border:1px solid #ccc;'>".floor(($row[6]*$mondays)/$hoursd)."</td>";
-				}
-				echo "<td style='border:1px solid #ccc;'>".$basssalw."</td>";
-				echo "<td style='border:1px solid #ccc;'>".$row[7]."</td>";
-				echo "<td style='border:1px solid #ccc;'>".$row[4]."</td>";
-				echo "<td style='border:1px solid #ccc;'>".$row[3]."</td>";
-				
-				$dateObj   = DateTime::createFromFormat('!m', $monthNum);
-				$monthName = $dateObj->format('F'); // March
-				echo "<td style='border:1px solid #ccc;'>".$monthName.", ".$year."</td>";
-				echo "<td style='border:1px solid #ccc;'><a href='calsalary.php?d=".$row[0]."' style='text-decoration:none;'>Delete</a></td>";
+		foreach($row as $key => $salvalue){
+			
+			//print_r($salvalue);
+			//echo ");</script>";
+			$i++;
+			$result2=$stmt->query($link2,"select hours,salary from attendance where username like '".$salvalue['username']."'");
+			//$result2 = mysqli_query($link,"select hours,bassal from predefined where usernm like '".$salvalue['username']."'");
+			//while($row2=mysqli_fetch_array($result2,MYSQLI_NUM)){
+			foreach($result2 as $key => $salvalue2){
+				$basssalw = $salvalue2['salary'];
+				$hoursd = $salvalue2['hours'];
 			}
-			echo "</table>";
-			mysqli_close($link);
+			$monthNum = substr($salvalue['month'],0,2);
+			$year = substr($salvalue['month'],3);
+			$mondays=cal_days_in_month(CAL_GREGORIAN,$monthNum,$year);
+		}
+		echo "<tr><td style='border:1px solid #ccc;'>".$i."</td>";
+		echo "<td style='border:1px solid #ccc;'>".$salvalue['name']."</td>";
+		echo "<td style='border:1px solid #ccc;'>".$hoursd."</td>";
+		echo "<td style='border:1px solid #ccc;'>".$salvalue['workhours']."</td>";
+		if(floor(($salvalue['workhours']*$mondays)/$hoursd)>$mondays){
+			echo "<td style='border:1px solid #ccc;'>".$mondays."</td>";
+		}
+		else {
+			echo "<td style='border:1px solid #ccc;'>".floor(($salvalue['workhours']*$mondays)/$hoursd)."</td>";
+		}
+		echo "<td style='border:1px solid #ccc;'>".$basssalw."</td>";
+		echo "<td style='border:1px solid #ccc;'>".$salvalue['calsal']."</td>";
+		echo "<td style='border:1px solid #ccc;'>".$salvalue['incentive']."</td>";
+		echo "<td style='border:1px solid #ccc;'>".$salvalue['salpaid']."</td>";
+		
+		$dateObj   = DateTime::createFromFormat('!m', $monthNum);
+		$monthName = $dateObj->format('F'); // March
+		echo "<td style='border:1px solid #ccc;'>".$monthName.", ".$year."</td>";
+		echo "<td style='border:1px solid #ccc;'><a href='calsalary.php?d=".$salvalue['ID']."' style='text-decoration:none;'>Delete</a></td>";
 	}
-
+	echo "</table>";
+}
 else if(isset($_GET["d"])){
 	$del=$_GET["d"];
-	$result3 = mysqli_query($link,"delete from salary where id=".$del);
+	$dateObj   = DateTime::createFromFormat('!m', date("m"));
+	$monthName = $dateObj->format('F');
+	$stmt = new connect();
+	$query = "update salary set deletedon='".date("d")."-".$monthName."' where ID=".$del;
+	$row=$stmt->onlyquery($link2,$query);
 	header("location:./salary.php");
 }
 else {

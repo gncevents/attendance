@@ -8,9 +8,9 @@ function connStrToArray($connStr){
     }
     return $connArray;
 }
-$conn_str = getenv('SQLAZURECONNSTR_attendance1');
-$dbConn = connStrToArray($conn_str);
-$serverName = substr($dbConn["Data Source"],4,35);
-$connectionInfo = array( "Database"=>$dbConn["Initial Catalog"], "UID"=>$dbConn["User ID"], "PWD"=>$dbConn["Password"]);
-$link = sqlsrv_connect( $serverName, $connectionInfo );
+$conn_str2 = getenv('SQLAZURECONNSTR_attendance1');
+$dbConn2 = connStrToArray($conn_str2);
+$serverName2 = substr($dbConn2["Data Source"],4,35);
+$connectionInfo2 = array( "Database"=>$dbConn2["Initial Catalog"], "UID"=>$dbConn2["User ID"], "PWD"=>$dbConn2["Password"]);
+$link2 = sqlsrv_connect( $serverName2, $connectionInfo2);
 ?>

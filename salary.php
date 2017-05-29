@@ -198,37 +198,37 @@ a:hover{
 							<div class="mdl-card__supporting-text">
 
 							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded is-dirty" data-upgraded=",MaterialTextfield">
-                                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" name="calsalary" id="fsal">
+                                <input class="mdl-textfield__input" type="number" pattern="-?[0-9]*(\.[0-9]+)?" name="calsalary" id="fsal">
                                 <label class="mdl-textfield__label" for="salary">Fixed Salary</label>
                                 <span class="mdl-textfield__error">Enter a number!</span>
                               </div>
 
 							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded is-dirty" data-upgraded=",MaterialTextfield">
-                                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" name="calsalary" id="calsal">
+                                <input class="mdl-textfield__input" type="number" pattern="-?[0-9]*(\.[0-9]+)?" name="calsalary" id="calsal">
                                 <label class="mdl-textfield__label" for="salary">Calculated Salary</label>
                                 <span class="mdl-textfield__error">Enter a number!</span>
                               </div>
 							
 							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded is-dirty" data-upgraded=",MaterialTextfield">
-                                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" name="fixhours" id="fixhours">
+                                <input class="mdl-textfield__input" type="number" pattern="-?[0-9]*(\.[0-9]+)?" name="fixhours" id="fixhours">
                                 <label class="mdl-textfield__label" for="incentive">Fixed Hours</label>
                                 <span class="mdl-textfield__error">Enter is not a number!</span>
                               </div>
 
 							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded is-dirty" data-upgraded=",MaterialTextfield">
-                                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" name="whours" id="workhours">
+                                <input class="mdl-textfield__input" type="number" pattern="-?[0-9]*(\.[0-9]+)?" name="whours" id="workhours">
                                 <label class="mdl-textfield__label" for="incentive">Hours Worked</label>
                                 <span class="mdl-textfield__error">Enter is not a number!</span>
                               </div>
 
 							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded is-dirty" data-upgraded=",MaterialTextfield">
-                                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" name="days" id="days" disabled>
+                                <input class="mdl-textfield__input" type="number" pattern="-?[0-9]*(\.[0-9]+)?" name="days" id="days" disabled>
                                 <label class="mdl-textfield__label" for="incentive">Days Worked</label>
                                 <span class="mdl-textfield__error">Enter is not a number!</span>
                               </div>
 
 							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded is-dirty" data-upgraded=",MaterialTextfield" id="extrahours" style="display:none;">
-                                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" name="ehours" id="ehours">
+                                <input class="mdl-textfield__input" type="number" pattern="-?[0-9]*(\.[0-9]+)?" name="ehours" id="ehours">
                                 <label class="mdl-textfield__label" for="incentive">Extra Hours Worked</label>
                                 <span class="mdl-textfield__error">Enter is not a number!</span>
                               </div>
@@ -245,12 +245,12 @@ a:hover{
                           <div class="mdl-card__supporting-text">
                             <!-- Numeric Textfield -->
                               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded is-dirty" data-upgraded=",MaterialTextfield">
-                                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" name="salary" id="salary">
+                                <input class="mdl-textfield__input" type="number" pattern="-?[0-9]*(\.[0-9]+)?" name="salary" id="salary">
                                 <label class="mdl-textfield__label" for="salary">Salary Amount</label>
                                 <span class="mdl-textfield__error">Enter a number!</span>
                               </div>
                               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded is-dirty" data-upgraded=",MaterialTextfield">
-                                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" name="incentive" id="incentive" value="0">
+                                <input class="mdl-textfield__input" type="number" pattern="-?[0-9]*(\.[0-9]+)?" name="incentive" id="incentive" value="0">
                                 <label class="mdl-textfield__label" for="incentive">Incentive</label>
                                 <span class="mdl-textfield__error">Enter is not a number!</span>
                               </div>                              
@@ -418,7 +418,6 @@ function changeoption() {
 				xmlhttp.onreadystatechange=function() {
 				  if (xmlhttp.readyState==4 && xmlhttp.status==200) {
 					var strres = xmlhttp.responseText;
-					console.log(xmlhttp.responseText);
 					var res = strres.split(":");
 					document.getElementById("calsal").value = res[0];
 					document.getElementById("salary").value = res[0];
@@ -473,7 +472,6 @@ function showUser() {
 	if(hopt2.value==""){ hopt2.value="No"; }
 	if(hopt3.value==""){ hopt3.value="No"; }
 	var str = hopt.value + ":" + hopt2.value + ":" + hopt3.value;
-	console.log(hopt + " : " + hopt2 + " : " + hopt3 + " str " + str);
 	if (str=="") {
 	  document.getElementById("txtHint").innerHTML="";
 	  return;
