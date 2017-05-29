@@ -327,7 +327,7 @@ a:hover{
 					$link2 = mysqli_connect('localhost', 'root', 'NoPassword') or die("can not Login.");
 					mysqli_select_db($link2,$db) or die("can not Login(Database Error.)");*/
 					$tbl = "";
-					$query="SELECT * FROM salary where deletedon like ''";
+					$query="SELECT * FROM salary where deletedon=null";
 					$stmt = new connect();
 						//$attquer = "select * from attendance";
 						$salrow=$stmt->query($link2,$query);
