@@ -138,17 +138,17 @@ a:hover{
 							<div class="mdl-card__supporting-text" style="padding: 16px 16px 0px 16px !important;">
 								 <?php  
                                 /*$db="attendance";
-                                $link = mysqli_connect('localhost', 'root', 'NoPassword') or die("can not Login.");
-                                mysqli_select_db($link,$db) or die("can not Login(Database Error.)");
+                                $link2 = mysqli_connect('localhost', 'root', 'NoPassword') or die("can not Login.");
+                                mysqli_select_db($link2,$db) or die("can not Login(Database Error.)");
     
-                                $result = mysqli_query($link,"select * from attendance");*/
+                                $result = mysqli_query($link2,"select * from attendance");*/
                                 $i=0;    
                                 //while($row=mysqli_fetch_array($result,MYSQLI_NUM)){*/
 																
 
 																$stmt = new connect();
 																$attquer = "select * from attendance";
-																$attdata=$stmt->query($link,$attquer);
+																$attdata=$stmt->query($link2,$attquer);
 																
 																foreach($attdata as $key => $value){
 																	$i++;
@@ -276,14 +276,14 @@ a:hover{
 				<select class="icons" name="hnm" id="hnm" style="display: block;" onchange="showUser()"><option value="No" selected>All Name</option>
 				<?php  
 					/*$db="attendance";
-					$link = mysqli_connect('localhost', 'root', 'NoPassword') or die("can not Login.");
-					mysqli_select_db($link,$db) or die("can not Login(Database Error.)");
-					$result = mysqli_query($link,"select * from attendance");*/
+					$link2 = mysqli_connect('localhost', 'root', 'NoPassword') or die("can not Login.");
+					mysqli_select_db($link2,$db) or die("can not Login(Database Error.)");
+					$result = mysqli_query($link2,"select * from attendance");*/
 					$i=0; 
 					//while($row=mysqli_fetch_array($result,MYSQLI_NUM)){*/
 						$stmt = new connect();
 						$attquer = "select * from attendance";
-						$row=$stmt->query($link,$attquer);
+						$row=$stmt->query($link2,$attquer);
 						
 						foreach($row as $key => $value){
 							$i++;
@@ -324,15 +324,15 @@ a:hover{
 			  <?php 
 					/*$db="attendance";
 					
-					$link = mysqli_connect('localhost', 'root', 'NoPassword') or die("can not Login.");
-					mysqli_select_db($link,$db) or die("can not Login(Database Error.)");*/
+					$link2 = mysqli_connect('localhost', 'root', 'NoPassword') or die("can not Login.");
+					mysqli_select_db($link2,$db) or die("can not Login(Database Error.)");*/
 					$tbl = "";
 					$query="SELECT * FROM salary";
 					$stmt = new connect();
 						//$attquer = "select * from attendance";
-						$salrow=$stmt->query($link,$query);
+						$salrow=$stmt->query($link2,$query);
 						
-					//$result = mysqli_query($link,$query);
+					//$result = mysqli_query($link2,$query);
 					echo "<table style='border: 1px solid #ccc;  box-shadow:0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12); '><tr style='background: bottom right 15% no-repeat #ff5252; '><th>No.</th><th>Name</th><th>Fixed<br />Hours</th><th>Hours<br />Worked<th>Days<br />worked<th>Fixed<br />Salary<th>Calculated<br />Salary<th>Incentive<th>Salary<br />Paid<th>Month<th>Delete</tr>";
 					$i=$j=0;
 					foreach($salrow as $hiskey => $hisvalue){
@@ -341,7 +341,7 @@ a:hover{
 					//while($row=mysqli_fetch_array($result,MYSQLI_NUM)){
 					
 						$histquery = "select hours,salary from attendance where username like '".$hisvalue['username']."'";
-						$result2 = $stmt->query($link,$histquery); //mysqli_query($link,);
+						$result2 = $stmt->query($link2,$histquery); //mysqli_query($link2,);
 						//while($row2=mysqli_fetch_array($result2,MYSQLI_NUM)){
 							foreach($result2 as $key => $hisrow){
 								$basssalw = $hisrow['salary'];
