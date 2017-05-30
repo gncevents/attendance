@@ -112,17 +112,17 @@ a:hover{
         </div>
         <!-- Tabs -->
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-			<a href="#fixed-tab-1" class="mdl-layout__tab is-active">Attendance</a>
+			<!--<a href="#fixed-tab-1" class="mdl-layout__tab is-active">Attendance</a>-->
 			<a href="#fixed-tab-2" class="mdl-layout__tab">Add Paid Salary</a>
 			<a href="#fixed-tab-3" class="mdl-layout__tab">History</a>
 		</div>
       </header>
       <main class="mdl-layout__content">
-        <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
-          <div class="page-content">
+        <!--<section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+          <div class="page-content">-->
 				<!--<iframe src="./admin.php" width="100%" height="100%" style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;overflow:hidden; width:100%; height:100%;" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>-->
-		  </div>
-        </section>
+		  <!--</div>
+        </section>-->
         <section class="mdl-layout__tab-panel" id="fixed-tab-2">
           <div class="page-content">
 			<div style="height:5px;"></div>
