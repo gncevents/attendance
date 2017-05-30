@@ -123,7 +123,7 @@ a:hover{
 				<!--<iframe src="./admin.php" width="100%" height="100%" style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;overflow:hidden; width:100%; height:100%;" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>-->
 		  <!--</div>
         </section>-->
-        <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+        <section class="mdl-layout__tab-panel is-active" id="fixed-tab-2">
           <div class="page-content">
 			<div style="height:5px;"></div>
 			 <div class="col-md-12 flex">
