@@ -108,10 +108,6 @@ else if(isset($_GET["h"])){
 		echo "<table style='border: 1px solid #ccc;  box-shadow:0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12); '><tr style='background: bottom right 15% no-repeat #ff5252; '><th>No.</th><th>Name</th><th>Fixed<br />Hours</th><th>Hours<br />Worked<th>Days<br />worked<th>Fixed<br />Salary<th>Calculated<br />Salary<th>Incentive<th>Salary<br />Paid<th>Month<th>Delete</tr>";
 		$i=$j=0;
 		foreach($row as $key => $salvalue){
-			
-			//print_r($salvalue);
-			//echo ");</script>";
-			$i++;
 			$result2=$stmt->query($link2,"select hours,salary from attendance where username like '".$salvalue['username']."'");
 			//$result2 = mysqli_query($link,"select hours,bassal from predefined where usernm like '".$salvalue['username']."'");
 			//while($row2=mysqli_fetch_array($result2,MYSQLI_NUM)){
@@ -122,26 +118,30 @@ else if(isset($_GET["h"])){
 			$monthNum = substr($salvalue['month'],0,2);
 			$year = substr($salvalue['month'],3);
 			$mondays=cal_days_in_month(CAL_GREGORIAN,$monthNum,$year);
-		}
-		echo "<tr><td style='border:1px solid #ccc;'>".$i."</td>";
-		echo "<td style='border:1px solid #ccc;'>".$salvalue['name']."</td>";
-		echo "<td style='border:1px solid #ccc;'>".$hoursd."</td>";
-		echo "<td style='border:1px solid #ccc;'>".$salvalue['workhours']."</td>";
-		if(floor(($salvalue['workhours']*$mondays)/$hoursd)>$mondays){
-			echo "<td style='border:1px solid #ccc;'>".$mondays."</td>";
-		}
-		else {
-			echo "<td style='border:1px solid #ccc;'>".floor(($salvalue['workhours']*$mondays)/$hoursd)."</td>";
-		}
-		echo "<td style='border:1px solid #ccc;'>".$basssalw."</td>";
-		echo "<td style='border:1px solid #ccc;'>".$salvalue['calsal']."</td>";
-		echo "<td style='border:1px solid #ccc;'>".$salvalue['incentive']."</td>";
-		echo "<td style='border:1px solid #ccc;'>".$salvalue['salpaid']."</td>";
 		
-		$dateObj   = DateTime::createFromFormat('!m', $monthNum);
-		$monthName = $dateObj->format('F'); // March
-		echo "<td style='border:1px solid #ccc;'>".$monthName.", ".$year."</td>";
-		echo "<td style='border:1px solid #ccc;'><a href='calsalary.php?d=".$salvalue['ID']."' style='text-decoration:none;'>Delete</a></td>";
+			if($salvalue['deletedon']==""){
+				$i++;
+				echo "<tr><td style='border:1px solid #ccc;'>".$i."</td>";
+				echo "<td style='border:1px solid #ccc;'>".$salvalue['name']."</td>";
+				echo "<td style='border:1px solid #ccc;'>".$hoursd."</td>";
+				echo "<td style='border:1px solid #ccc;'>".$salvalue['workhours']."</td>";
+				if(floor(($salvalue['workhours']*$mondays)/$hoursd)>$mondays){
+					echo "<td style='border:1px solid #ccc;'>".$mondays."</td>";
+				}
+				else {
+					echo "<td style='border:1px solid #ccc;'>".floor(($salvalue['workhours']*$mondays)/$hoursd)."</td>";
+				}
+				echo "<td style='border:1px solid #ccc;'>".$basssalw."</td>";
+				echo "<td style='border:1px solid #ccc;'>".$salvalue['calsal']."</td>";
+				echo "<td style='border:1px solid #ccc;'>".$salvalue['incentive']."</td>";
+				echo "<td style='border:1px solid #ccc;'>".$salvalue['salpaid']."</td>";
+				
+				$dateObj   = DateTime::createFromFormat('!m', $monthNum);
+				$monthName = $dateObj->format('F'); // March
+				echo "<td style='border:1px solid #ccc;'>".$monthName.", ".$year."</td>";
+				echo "<td style='border:1px solid #ccc;'><a href='calsalary.php?d=".$salvalue['ID']."' style='text-decoration:none;'>Delete</a></td>";
+			}
+		}
 	}
 	echo "</table>";
 }

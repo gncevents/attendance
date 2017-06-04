@@ -113,7 +113,7 @@ a:hover{
         <!-- Tabs -->
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
 			<!--<a href="#fixed-tab-1" class="mdl-layout__tab is-active">Attendance</a>-->
-			<a href="#fixed-tab-2" class="mdl-layout__tab">Add Paid Salary</a>
+			<a href="#fixed-tab-2" class="mdl-layout__tab is-active">Add Paid Salary</a>
 			<a href="#fixed-tab-3" class="mdl-layout__tab">History</a>
 		</div>
       </header>
@@ -472,6 +472,7 @@ function showUser() {
 	if(hopt2.value==""){ hopt2.value="No"; }
 	if(hopt3.value==""){ hopt3.value="No"; }
 	var str = hopt.value + ":" + hopt2.value + ":" + hopt3.value;
+	console.log(str);
 	if (str=="") {
 	  document.getElementById("txtHint").innerHTML="";
 	  return;
