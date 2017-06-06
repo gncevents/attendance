@@ -1,40 +1,11 @@
 <?php
 session_start();
-$ipAddress=$_SERVER['REMOTE_ADDR'];
-$macAddr=false;
-$adminmac="";
-$adminmac="b0-83-fe-65-d1-23";
-$adminmac1="b0-83-fe-8a-5d-83";
-$adminmac2="";
-#run the external command, break output into lines
-$arp=`arp -a $ipAddress`;
-$lines=explode("\n", $arp);
-
-#look for the output line describing our IP address
-foreach($lines as $line)
-{
-   $cols=preg_split('/\s+/', trim($line));
-   if ($cols[0]==$ipAddress)
-   {
-       $macAddr=$cols[1];
-   }
-}
-if($macAddr===$adminmac)
-{
-	
-	$db="attendance";
-$link = mysqli_connect('localhost', 'root', 'NoPassword') or die("can not Login.");
-mysqli_select_db($link,$db) or die("can not Login(Database Error.)");
-
+require './conn.1.php';
+require './cls_require.php';
 if(isset($_POST['salname']) & isset($_POST['Salary']) & isset($_POST['fixhours']) & isset($_POST['mac'])){
-	//echo $_POST['Name']."<br />".$_POST['Salary']."<br />".$_POST['hours']."<br />".$_POST['mac']."<br />".strtolower(str_replace(" ","",$_POST['Name']));
-	
-	$sql1="update attendance set mac='".$_POST['mac']."' where user='".$_POST['salname']."'";
-	echo $sql1."<br />";
-	$sql2="update predefined set hours='".$_POST["fixhours"]."', bassal=".$_POST["Salary"]." where usernm='".$_POST['salname']."'";
-	echo $sql2;
-	$dateadd1 = mysqli_query($link, $sql1) or die(mysqli_errno($link) . ": " . mysqli_error($link));
-	$dateadd2 = mysqli_query($link, $sql2) or die(mysqli_errno($link) . ": " . mysqli_error($link));
+	$sql1="update attendance set mac='".$_POST['mac']."', hours=".$_POST["fixhours"].", salary=".$_POST["Salary"]." where username='".$_POST['salname']."'";
+	$updatestmt = new connect();
+	$updatestmt->onlyquery($link2,$sql1);
 	header("location:edit.php");
 }
 else
@@ -42,25 +13,20 @@ else
 <!DOCTYPE html>
 <html>
   <head>
-    <!-- Material Design Lite -->
-    <script src="./js/js/material.min.js"></script>
-	    <script src="./js/js/bootstrap.min.js"></script>
-		<link rel="stylesheet" href="./css/css/material.blue_grey-red.min.css" />
-		<!-- Final Color <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.red-indigo.min.css" /> -->
+    <script src="./js/material.min.js"></script>
+	    <script src="./js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="./css/material.red-blue.min.css" />
 
-    <!-- Material Design icon font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-	<link rel="stylesheet" href="./css/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="./css/css/ghpages-materialize.css" />
+	<link rel="stylesheet" href="./css/bootstrap.min.css" />
+	<link rel="stylesheet" href="./css/ghpages-materialize.css" />
 	
 <link type="text/css" href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
-<script type="text/javascript" src="./js/js/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="./js/js/jquery-1.8.3.min.js"></script>
-<script src="./js/js/materialize.js"></script>
+<script type="text/javascript" src="./js/jquery-3.1.1.min.js"></script>
+<script src="./js/materialize.min.js"></script>
     <style>
         body {font-family: 'Poppins', sans-serif; font-weight:400; font-size: 12px; background-color: #eee;}
 </style>
-<!-- Square card -->
 <style>
 .demo-card-square.mdl-card {
   width: 320px;
@@ -72,8 +38,7 @@ else
 }
 .demo-card-square > .mdl-card__title {
   color: #fff;
-  background:
-    bottom right 15% no-repeat #ff5252;
+  background: bottom right 15% no-repeat #ff5252;
 }
 .mdl-layout__drawer{
 	width:300px !important;
@@ -121,8 +86,7 @@ a:hover{
 			<div style="height:5px;"></div>
 			 <div class="col-md-12 flex">
 				<div class="text-left" style="float:left;">
-				<form action="edit.php" method="POST" id="editform">
-
+				<form action="" method="POST" id="editform">
 					<div class="col-md-4" id="colmd6">
 						<div class="demo-card-square mdl-card mdl-shadow--2dp" id="namelist">
 							<div class="mdl-card__title mdl-card--expand">
@@ -130,17 +94,18 @@ a:hover{
 							 </div>
 							<div class="mdl-card__supporting-text" style="padding: 16px 16px 0px 16px !important;">
 								 <?php  
-                                $db="attendance";
-                                $link = mysqli_connect('localhost', 'root', 'NoPassword') or die("can not Login.");
-                                mysqli_select_db($link,$db) or die("can not Login(Database Error.)");
-    
-                                $result = mysqli_query($link,"select * from attendance");
-                                $i=0;    
-                                while($row=mysqli_fetch_array($result,MYSQLI_NUM)){
+                                
+								$stmt = new connect();
+								$sql = "select name,username from attendance";
+								$usrs = $stmt->query($link2,$sql);
+
+                                //while($row=mysqli_fetch_array($result,MYSQLI_NUM)){
+								$i=0;
+								foreach($usrs as $key => $value){
                                     $i++;
 									echo "<label class='mdl-radio mdl-js-radio mdl-js-ripple-effect' for='option-".$i."'>
-                                      <input type='radio' id='option-".$i."' class='mdl-radio__button' onchange='changeoption()' name='salname' value='".$row[3]."'>
-                                      <span class='mdl-radio__label'>".$row[1]."</span></label><div style='height:10px;'></div>";
+                                      <input type='radio' id='option-".$i."' class='mdl-radio__button' onchange='changeoption()' name='salname' value='".$value['username']."'>
+                                      <span class='mdl-radio__label'>".$value['name']."</span></label><div style='height:10px;'></div>";
                                 }
 								?>
 							</div>
@@ -182,8 +147,6 @@ a:hover{
 				</div>
 			</div>
 		  </div>
-
-
 <script type="text/javascript">
 function changeoption() {
 	var radios = document.getElementsByName('salname');
@@ -204,11 +167,11 @@ function changeoption() {
 			document.getElementById("salary").value = res[0];
 			document.getElementById("mac").value = res[2];
 			document.getElementById("fixhours").value = res[1];
+		  }
 		}
+		xmlhttp.open("GET","editemp.php?q="+strs);
+		xmlhttp.send();
 	}
-	xmlhttp.open("GET","editemp.php?q="+strs);
-	xmlhttp.send();
-}
 }
 function submit(){
 	var form = document.getElementById('editform');
@@ -217,5 +180,4 @@ function submit(){
 	</script>
   </body>
 </html>
-<?php }
-}?>
+<?php } ?>

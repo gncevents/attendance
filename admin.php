@@ -4,7 +4,7 @@
 <head>
 <title>See Your Attendance | GNC</title>
 <link rel="stylesheet" href="./css/bootstrap.min.css" />
-    <script src="../js/jquery.min.js"></script>
+    <script src="./js/jquery.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>
     <link type="text/css" href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
     <style>
@@ -17,13 +17,12 @@
 <body>
 <?php
 session_start();
-require '../conn.php';
-require '../conn.1.php';
-require '../cls_require.php';
-require '../cls_require.1.php';
+require './conn.php';
+require './conn.1.php';
+require './cls_require.php';
 
 $curmonth=date("m");
-$stmt = new connect1();
+$stmt = new connect();
 $sql = "select name,username from attendance";
 $tables = $stmt->query($link2,$sql);
 $iall=0;

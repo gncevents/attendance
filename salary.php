@@ -24,15 +24,15 @@ foreach($lines as $line)
 <html>
   <head>
     <script src="./js/material.min.js"></script>
-	    <script src="./adminpanel/js/bootstrap.min.js"></script>
+	    <script src="./js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="./css/material.red-blue.min.css" />
 		<!-- Final Color <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.red-indigo.min.css" /> -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 	<link rel="stylesheet" href="./css/bootstrap.min.css" />
 	<link rel="stylesheet" href="./css/ghpages-materialize.css" />	
 <link type="text/css" href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
-<script type="text/javascript" src="./adminpanel/js/jquery.js"></script>
-<script src="./adminpanel/js/materialize.js"></script>
+<script type="text/javascript" src="./js/jquery.min.js"></script>
+<script src="./js/materialize.min.js"></script>
     <style>
         body {font-family: 'Poppins', sans-serif; font-weight:400; font-size: 12px; background-color: #eee;}
 </style>
